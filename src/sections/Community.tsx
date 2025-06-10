@@ -8,7 +8,7 @@ export function Community() {
             Join the Collective. Generate with Us.
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-            prajana.ai thrives on the diverse talents and perspectives of individuals and teams. Whether you are an AI developer, a researcher, a creative, or part of a team exploring the frontiers of human-AI interaction, we invite you to contribute to our growing ecosystem.
+            prajana AI labs thrives on the diverse talents and perspectives of individuals and teams. Whether you are an AI developer, a researcher, a creative, or part of a team exploring the frontiers of human-AI interaction, we invite you to contribute to our growing ecosystem.
           </p>
           <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
             Share your AI apps, agents, or any work that aligns with the KoXist ethos. Let's build the future of intelligent collaboration, together.

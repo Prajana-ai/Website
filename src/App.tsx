@@ -6,6 +6,16 @@ import { AboutPage } from './pages/About';
 import { WorksPage } from './pages/Works';
 import { CommunityPage } from './pages/Community';
 import { AppDetailPage } from './pages/AppDetailPage';
+import { CreatorsListPage } from './pages/CreatorsListPage';
+import { CreatorDetailPage } from './pages/creators/[creatorId]';
+import AdminLoginPage from './pages/admin/AdminLoginPage';
+import AdminDashboardPage from './pages/admin/AdminDashboardPage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { TermsOfServicePage } from './pages/TermsOfServicePage';
+import { ContactUsPage } from './pages/ContactUsPage';
+import { AboutKoXistPage } from './pages/AboutKoXistPage';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import { Footer } from './components/Footer';
 
 function App() {
   const [theme, setTheme] = useState<'light' | 'dark' | 'system'>(() => {
@@ -23,9 +33,13 @@ function App() {
     if (currentTheme === 'dark' || (currentTheme === 'system' && isSystemDark)) {
       root.classList.remove('light');
       root.classList.add('dark');
+      root.style.setProperty('--background-color-dark', 'var(--prajana-deep-blue)');
+      root.style.setProperty('--text-color-dark', 'var(--prajana-ice-blue)');
     } else {
       root.classList.remove('dark');
       root.classList.add('light');
+      root.style.setProperty('--background-color-light', 'white'); // Or var(--prajana-ice-blue)
+      root.style.setProperty('--text-color-light', 'var(--prajana-deep-blue)');
     }
   }, []);
 
@@ -45,7 +59,7 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
+      <div className="min-h-screen bg-[var(--background-color-light)] dark:bg-[var(--background-color-dark)] text-[var(--text-color-light)] dark:text-[var(--text-color-dark)] transition-colors duration-200 pt-16">
         <Navigation theme={theme} setTheme={setTheme} />
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -53,7 +67,19 @@ function App() {
           <Route path="/works" element={<WorksPage />} />
           <Route path="/community" element={<CommunityPage />} />
           <Route path="/works/:appId" element={<AppDetailPage />} />
+          <Route path="/creators" element={<CreatorsListPage />} />
+          <Route path="/creators/:creatorId" element={<CreatorDetailPage />} />
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin" element={<ProtectedRoute />}>
+            <Route path="dashboard" element={<AdminDashboardPage />} />
+            {/* Add other protected admin routes here as children of /admin */}
+          </Route>
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+          <Route path="/contact-us" element={<ContactUsPage />} />
+          <Route path="/about-koxist" element={<AboutKoXistPage />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );

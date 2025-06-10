@@ -1,4 +1,3 @@
-import React from 'react';
 import { Code, GitBranch, Terminal } from 'lucide-react';
 
 export function ApiDocumentation() {

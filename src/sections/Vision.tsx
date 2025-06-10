@@ -1,4 +1,3 @@
-import React from 'react';
 
 export function Vision() {
   return (
@@ -9,7 +8,7 @@ export function Vision() {
             Shaping the Future of Intelligence, Together.
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-            prajana.ai is driven by a vision for an open and accessible future for artificial intelligence. We believe in the transformative power of Generative AI and are dedicated to fostering its growth and ethical application.
+            prajana AI labs is driven by a vision for an open and accessible future for artificial intelligence. We believe in the transformative power of Generative AI and are dedicated to fostering its growth and ethical application.
           </p>
         </div>
 

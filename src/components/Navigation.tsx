@@ -6,6 +6,7 @@ const navigationItems = [
   { text: 'Home', href: '/' },
   { text: 'About', href: '/about' },
   { text: 'Works', href: '/works' },
+  { text: 'Creators', href: '/creators' },
 ];
 
 interface NavigationProps {
@@ -18,12 +19,12 @@ export function Navigation({ theme, setTheme }: NavigationProps) {
 
   return (
     <nav className="fixed w-full top-0 z-50">
-      <div className="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 transition-colors duration-200">
+      <div className="bg-[var(--background-color-light)] dark:bg-[var(--background-color-dark)] border-b border-prajana-teal/30 dark:border-prajana-teal/50 transition-colors duration-200">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <Link to="/" className="flex items-center">
-                <span className="text-xl font-bold text-gray-900 dark:text-white">prajana.ai</span>
+                <img src="/prajana-favicon.png" alt="Prajana AI Logo" className="h-10 w-auto" />
               </Link>
             </div>
 
@@ -34,7 +35,7 @@ export function Navigation({ theme, setTheme }: NavigationProps) {
                   <li key={item.text}>
                     <Link
                       to={item.href}
-                      className="text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                      className="text-[var(--text-color-light)] dark:text-[var(--text-color-dark)] hover:text-prajana-magenta dark:hover:text-prajana-cyan transition-colors"
                     >
                       {item.text}
                     </Link>
@@ -47,7 +48,7 @@ export function Navigation({ theme, setTheme }: NavigationProps) {
                   else if (theme === 'dark') setTheme('system');
                   else setTheme('light');
                 }}
-                className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="text-[var(--text-color-light)] dark:text-[var(--text-color-dark)] hover:text-prajana-magenta dark:hover:text-prajana-cyan p-2 rounded-lg hover:bg-prajana-purple/20 dark:hover:bg-prajana-purple/30"
               >
                 {theme === 'light' && <Moon className="w-5 h-5" />}
                 {theme === 'dark' && <Laptop className="w-5 h-5" />}
@@ -63,7 +64,7 @@ export function Navigation({ theme, setTheme }: NavigationProps) {
             <div className="md:hidden flex items-center">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                className="text-[var(--text-color-light)] dark:text-[var(--text-color-dark)] hover:text-prajana-magenta dark:hover:text-prajana-cyan"
               >
                 {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -78,7 +79,7 @@ export function Navigation({ theme, setTheme }: NavigationProps) {
                   <Link
                     key={item.text}
                     to={item.href}
-                    className="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md"
+                    className="block px-3 py-2 text-base font-medium text-[var(--text-color-light)] dark:text-[var(--text-color-dark)] hover:text-prajana-magenta dark:hover:text-prajana-cyan hover:bg-prajana-purple/20 dark:hover:bg-prajana-purple/30 rounded-md"
                   >
                     {item.text}
                   </Link>

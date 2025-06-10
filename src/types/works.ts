@@ -4,6 +4,8 @@ export interface WorkBase {
   title: string;
   description?: string;
   category?: string;
+  creatorId?: string; // ID of the creator
+  creatorName?: string; // Display name of the creator
   imageUrl?: string;
   iconUrl?: string;
   ctaText?: string;
@@ -13,6 +15,7 @@ export interface WorkBase {
 export interface LargeFeatureWork extends WorkBase {
   type: 'large-feature';
   subtitle?: string;
+  features?: string[]; // e.g., ['Feature 1', 'Feature 2']
 }
 
 export interface MediumFeatureWork extends WorkBase {

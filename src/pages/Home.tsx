@@ -1,5 +1,6 @@
+import { Link } from 'react-router-dom';
 import { Hero } from '../sections/Hero';
-import { Footer } from '../components/Footer';
+
 
 export function HomePage() {
   return (
@@ -14,14 +15,14 @@ export function HomePage() {
                 Our Story
               </h3>
               <p className="text-gray-600 dark:text-gray-300 mb-6">
-                Discover the vision behind prajana.ai and our mission to create a future where human ingenuity and AI co-create.
+                Discover the vision behind prajana AI labs and our mission to create a future where human ingenuity and AI co-create.
               </p>
-              <a 
-                href="/about" 
+              <Link 
+                to="/about" 
                 className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium"
               >
                 Learn More →
-              </a>
+              </Link>
             </div>
 
             {/* Works Card */}
@@ -32,12 +33,12 @@ export function HomePage() {
               <p className="text-gray-600 dark:text-gray-300 mb-6">
                 Explore our collection of AI-powered applications and tools designed to enhance human creativity and productivity.
               </p>
-              <a 
-                href="/works" 
+              <Link 
+                to="/works" 
                 className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium"
               >
                 View Portfolio →
-              </a>
+              </Link>
             </div>
 
             {/* Community Card */}
@@ -48,16 +49,15 @@ export function HomePage() {
               <p className="text-gray-600 dark:text-gray-300 mb-6">
                 Become part of our community of creators, developers, and innovators shaping the future of AI collaboration.
               </p>
-              <a 
-                href="/community" 
+              <Link 
+                to="/community" 
                 className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium"
               >
                 Get Involved →
-              </a>
+              </Link>
             </div>
           </div>
         </div>
-        <Footer />
       </main>
     </div>
   );
