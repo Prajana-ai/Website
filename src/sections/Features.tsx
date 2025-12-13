@@ -1,4 +1,3 @@
-import React from 'react';
 import { Zap, Shield } from 'lucide-react';
 import { FeatureCard } from '../components/FeatureCard';
 
@@ -8,7 +7,7 @@ export function Features() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8">
           <FeatureCard
-            icon={<img src="/logo.png" alt="AI Search" className="w-8 h-8" />}
+            icon={<img src="/prajana-logo.png" alt="AI Search" className="w-8 h-8" />}
             title="AI-Powered Search"
             description="Advanced machine learning algorithms provide precise and contextual search results."
           />

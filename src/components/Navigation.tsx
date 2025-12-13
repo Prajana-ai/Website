@@ -24,7 +24,7 @@ export function Navigation({ theme, setTheme }: NavigationProps) {
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <Link to="/" className="flex items-center">
-                <img src="/prajana-favicon.png" alt="Prajana AI Logo" className="h-10 w-auto" />
+                <img src="/prajana-logo.png" alt="Prajana AI Logo" className="h-10 w-auto" />
               </Link>
             </div>
 
