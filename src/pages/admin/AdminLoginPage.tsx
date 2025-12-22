@@ -27,7 +27,19 @@ const AdminLoginPage: React.FC = () => {
       // Or, you can navigate immediately after successful sign-in if preferred:
       // navigate('/admin/dashboard');
     } catch (err: any) {
-      setError(err.message || 'Failed to sign in. Please check your credentials.');
+      // Provide more specific feedback based on the Firebase error code
+      let errorMessage = 'Failed to sign in. Please try again.';
+      switch (err.code) {
+        case 'auth/invalid-credential':
+        case 'auth/user-not-found':
+        case 'auth/wrong-password':
+          errorMessage = 'Invalid email or password. Please check your credentials and try again.';
+          break;
+        case 'auth/too-many-requests':
+          errorMessage = 'Access to this account has been temporarily disabled due to many failed login attempts. You can reset your password or try again later.';
+          break;
+      }
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
