@@ -3,42 +3,91 @@ import { Link } from 'react-router-dom';
 
 export function Footer() {
   return (
-    <footer className="bg-blue-50 text-blue-800 py-12 dark:bg-blue-100">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="text-xl font-semibold mb-4">prajana AI labs</h3>
-            <p className="text-blue-600">
-              A KoXist Foundation Initiative
+    <footer className="relative bg-white dark:bg-prajana-deep-blue pt-16 pb-8 overflow-hidden">
+      {/* Gradient Top Border */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-prajana-purple via-prajana-cyan to-prajana-purple"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+          {/* Brand Column */}
+          <div className="space-y-4">
+            <h3 className="text-2xl font-bold text-prajana-deep-blue dark:text-white flex items-center">
+              <span className="w-2 h-2 rounded-full bg-prajana-purple mr-2"></span>
+              prajana AI labs
+            </h3>
+            <p className="text-prajana-deep-blue/70 dark:text-prajana-ice-blue/60 text-sm leading-relaxed">
+              A KoXist Foundation Initiative. Pioneering the future of ethical Human-AI collaboration.
             </p>
           </div>
+
+          {/* Quick Links */}
           <div>
-            <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><Link to="/about" className="text-blue-600 hover:text-blue-900 transition-colors">About</Link></li>
-              <li><Link to="/works" className="text-blue-600 hover:text-blue-900 transition-colors">Works</Link></li>
-              <li><Link to="/about-koxist" className="text-blue-600 hover:text-blue-900 transition-colors">Our Vision (KoXist)</Link></li>
-              <li><Link to="/community" className="text-blue-600 hover:text-blue-900 transition-colors">Community</Link></li>
+            <h4 className="font-bold text-prajana-deep-blue dark:text-white mb-6 uppercase tracking-wider text-sm">Quick Links</h4>
+            <ul className="space-y-3">
+              {[
+                { name: 'About Us', path: '/about' },
+                { name: 'Our Works', path: '/works' },
+                { name: 'Vision (KoXist)', path: '/about-koxist' },
+                { name: 'Community', path: '/community' }
+              ].map((link) => (
+                <li key={link.name}>
+                  <Link
+                    to={link.path}
+                    className="text-prajana-deep-blue/70 dark:text-prajana-ice-blue/70 hover:text-prajana-purple dark:hover:text-prajana-cyan transition-colors text-sm font-medium inline-block hover:translate-x-1 duration-200"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
+
+          {/* Legal */}
           <div>
-            <h3 className="text-xl font-semibold mb-4">Legal</h3>
-            <ul className="space-y-2">
-              <li><Link to="/privacy-policy" className="text-blue-600 hover:text-blue-900 transition-colors">Privacy Policy</Link></li>
-              <li><Link to="/terms-of-service" className="text-blue-600 hover:text-blue-900 transition-colors">Terms of Service</Link></li>
+            <h4 className="font-bold text-prajana-deep-blue dark:text-white mb-6 uppercase tracking-wider text-sm">Legal</h4>
+            <ul className="space-y-3">
+              {[
+                { name: 'Privacy Policy', path: '/privacy-policy' },
+                { name: 'Terms of Service', path: '/terms-of-service' }
+              ].map((link) => (
+                <li key={link.name}>
+                  <Link
+                    to={link.path}
+                    className="text-prajana-deep-blue/70 dark:text-prajana-ice-blue/70 hover:text-prajana-purple dark:hover:text-prajana-cyan transition-colors text-sm font-medium inline-block hover:translate-x-1 duration-200"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
+
+          {/* Contact */}
           <div>
-            <h3 className="text-xl font-semibold mb-4">Contact</h3>
-            <ul className="space-y-2">
-              <li><Link to="/contact-us" className="text-blue-600 hover:text-blue-900 transition-colors">Contact Us</Link></li>
-              <li><Link to="/about-koxist" className="text-blue-600 hover:text-blue-900 transition-colors">About KoXist Foundation</Link></li>
+            <h4 className="font-bold text-prajana-deep-blue dark:text-white mb-6 uppercase tracking-wider text-sm">Stay Connected</h4>
+            <ul className="space-y-3">
+              <li>
+                <Link to="/contact-us" className="text-prajana-deep-blue/70 dark:text-prajana-ice-blue/70 hover:text-prajana-purple dark:hover:text-prajana-cyan transition-colors text-sm font-medium inline-block hover:translate-x-1 duration-200">
+                  Contact Support
+                </Link>
+              </li>
+              <li>
+                <a href="mailto:info@prajana.ai" className="text-prajana-deep-blue/70 dark:text-prajana-ice-blue/70 hover:text-prajana-purple dark:hover:text-prajana-cyan transition-colors text-sm font-medium inline-block hover:translate-x-1 duration-200">
+                  info@prajana.ai
+                </a>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-blue-200 mt-12 pt-8 text-center text-blue-600">
-          <p>&copy; {new Date().getFullYear()} prajana AI labs. All rights reserved.</p>
+        <div className="border-t border-prajana-purple/10 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-sm text-prajana-deep-blue/50 dark:text-prajana-ice-blue/40">
+            &copy; {new Date().getFullYear()} Prajana AI Labs. All rights reserved.
+          </p>
+          <div className="mt-4 md:mt-0 flex space-x-6">
+            {/* Social icons could go here */}
+          </div>
         </div>
       </div>
     </footer>

@@ -1,13 +1,8 @@
 import { useState, useEffect } from 'react';
-import { WorkItemData, LargeFeatureWork, MediumFeatureWork, ListItemWork, SmallImageWork } from '../types/works';
+import { WorkItemData } from '../types/works';
 import { getWorks } from '../lib/workService';
-import { LargeFeatureCard } from '../components/LargeFeatureCard';
-import { MediumFeatureCard } from '../components/MediumFeatureCard';
-import { ListItemCard } from '../components/ListItemCard';
-import { SmallImageCard } from '../components/SmallImageCard';
+import { WorkspaceCard } from '../components/WorkspaceCard';
 import { SectionTitle } from '../components/SectionTitle';
-
-
 
 export function Works() {
   const [groupedWorks, setGroupedWorks] = useState<Record<string, WorkItemData[]>>({});
@@ -33,7 +28,6 @@ export function Works() {
       } catch (err) {
         console.error("Error fetching works: ", err);
         setError('Failed to load works. Please try again later.');
-        // No need to clear allWorks as it's removed, groupedWorks will remain empty or as per last successful fetch
       } finally {
         setIsLoading(false);
       }
@@ -45,9 +39,9 @@ export function Works() {
 
   if (isLoading) {
     return (
-      <section className="py-12 bg-white dark:bg-gray-950">
+      <section className="py-8 bg-white dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xl text-gray-700 dark:text-gray-300">Loading works...</p>
+          <p className="text-xl text-prajana-deep-blue/70 dark:text-prajana-ice-blue/70">Loading works...</p>
         </div>
       </section>
     );
@@ -55,7 +49,7 @@ export function Works() {
 
   if (error) {
     return (
-      <section className="py-12 bg-white dark:bg-gray-950">
+      <section className="py-8 bg-white dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xl text-red-500">{error}</p>
         </div>
@@ -65,53 +59,31 @@ export function Works() {
 
   if (!isLoading && Object.keys(groupedWorks).length === 0 && !error) {
     return (
-      <section className="py-12 bg-white dark:bg-gray-950">
+      <section className="py-8 bg-white dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xl text-gray-700 dark:text-gray-300">No works to display at the moment.</p>
+          <p className="text-xl text-prajana-deep-blue/70 dark:text-prajana-ice-blue/70">No works to display at the moment.</p>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="py-12 bg-white dark:bg-gray-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    <section className="py-8 bg-white dark:bg-gray-950">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {Object.entries(groupedWorks)
-          .sort(([catA], [catB]) => catA.localeCompare(catB)) // Sort categories alphabetically
+          .sort(([catA], [catB]) => catA.localeCompare(catB))
           .map(([category, worksInCategory]) => {
-            const largeFeaturesInCategory = worksInCategory.filter(w => w.type === 'large-feature') as LargeFeatureWork[];
-            const otherWorksInCategory = worksInCategory.filter(w => w.type !== 'large-feature');
-
             if (worksInCategory.length === 0) return null;
 
             return (
               <section key={category}>
                 <SectionTitle title={category} />
-                
-                {/* Render Large Feature Cards first */}
-                {largeFeaturesInCategory.length > 0 && (
-                  <div className="space-y-12 mb-12">
-                    {largeFeaturesInCategory.map(item => <LargeFeatureCard key={item.id} item={item} />)}
-                  </div>
-                )}
 
-                {/* Render other card types in a grid */}
-                {otherWorksInCategory.length > 0 && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {otherWorksInCategory.map(item => {
-                      switch (item.type) {
-                        case 'medium-feature':
-                          return <MediumFeatureCard key={item.id} item={item as MediumFeatureWork} />;
-                        case 'list-item':
-                          return <ListItemCard key={item.id} item={item as ListItemWork} />;
-                        case 'small-image':
-                          return <SmallImageCard key={item.id} item={item as SmallImageWork} />;
-                        default:
-                          return null;
-                      }
-                    })}
-                  </div>
-                )}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {worksInCategory.map(item => (
+                    <WorkspaceCard key={item.id} item={item} />
+                  ))}
+                </div>
               </section>
             );
           })}
@@ -119,4 +91,3 @@ export function Works() {
     </section>
   );
 }
-

@@ -18,7 +18,7 @@ export function CreatorsListPage() {
       try {
         setIsLoading(true);
         const works = await getWorks();
-        
+
         const creatorMap = new Map<string, { name: string; workCount: number }>();
 
         works.forEach(work => {
@@ -38,7 +38,7 @@ export function CreatorsListPage() {
           name: data.name,
           workCount: data.workCount,
         })).sort((a, b) => a.name.localeCompare(b.name)); // Sort by name
-        
+
         setCreators(uniqueCreators);
         setError(null);
       } catch (err) {
@@ -54,9 +54,9 @@ export function CreatorsListPage() {
 
   if (isLoading) {
     return (
-      <section className="py-12 bg-white dark:bg-gray-950">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xl text-gray-700 dark:text-gray-300">Loading creators...</p>
+      <section className="py-8 bg-white dark:bg-gray-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-xl text-prajana-deep-blue/70 dark:text-prajana-ice-blue/70">Loading creators...</p>
         </div>
       </section>
     );
@@ -64,39 +64,61 @@ export function CreatorsListPage() {
 
   if (error) {
     return (
-      <section className="py-12 bg-white dark:bg-gray-950">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-8 bg-white dark:bg-gray-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xl text-red-500">{error}</p>
         </div>
       </section>
     );
   }
 
-  return (
-    <div className="pt-16 bg-gray-50 dark:bg-gray-950 min-h-screen">
-      <div className="max-w-4xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-10 text-center text-gray-900 dark:text-white">Our Creators</h1>
-        
-        {creators.length === 0 && !isLoading && (
-          <div className="text-center py-10 px-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <p className="text-gray-700 dark:text-gray-300">No creators found at the moment.</p>
-          </div>
-        )}
+  if (!isLoading && creators.length === 0 && !error) {
+    return (
+      <section className="py-8 bg-white dark:bg-gray-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-xl text-prajana-deep-blue/70 dark:text-prajana-ice-blue/70">No creators found at the moment.</p>
+        </div>
+      </section>
+    );
+  }
 
-        {creators.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {creators.map((creator) => (
-              <Link 
-                key={creator.id} 
-                to={`/creators/${creator.id}`} 
-                className="block p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:-translate-y-1"
-              >
-                <h2 className="text-2xl font-semibold text-indigo-600 dark:text-indigo-400 mb-2 truncate">{creator.name}</h2>
-                <p className="text-gray-600 dark:text-gray-400">{creator.workCount} work{creator.workCount !== 1 ? 's' : ''} featured</p>
-              </Link>
-            ))}
-          </div>
-        )}
+  return (
+    <div className="bg-white dark:bg-gray-950 transition-colors duration-200">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <h1 className="text-4xl font-bold mb-12 text-center text-prajana-deep-blue dark:text-white relative">
+          Our Creators
+          <span className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-prajana-purple to-prajana-cyan rounded-full"></span>
+        </h1>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {creators.map((creator) => (
+            <Link
+              key={creator.id}
+              to={`/creators/${creator.id}`}
+              className="group relative flex flex-col bg-white dark:bg-prajana-deep-blue rounded-2xl overflow-hidden border border-prajana-purple/5 dark:border-prajana-ice-blue/5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              {/* Image Section */}
+              <div className="w-full aspect-square relative overflow-hidden">
+                <div className="absolute inset-0 bg-prajana-purple/5 dark:bg-prajana-deep-blue/50 animate-pulse" />
+                <img
+                  src="/creator-placeholder.png"
+                  alt={creator.name}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-prajana-deep-blue/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+
+                {/* Overlay Text */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                  <h2 className="text-2xl font-bold text-white mb-1 drop-shadow-md">{creator.name}</h2>
+                  <p className="text-prajana-ice-blue/80 font-medium text-sm flex items-center">
+                    <span className="w-2 h-2 rounded-full bg-prajana-cyan mr-2 animate-pulse"></span>
+                    {creator.workCount} Work{creator.workCount !== 1 ? 's' : ''} Featured
+                  </p>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

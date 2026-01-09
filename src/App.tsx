@@ -26,7 +26,7 @@ function App() {
     return 'system';
   });
 
-    const applyTheme = useCallback((currentTheme: 'light' | 'dark' | 'system') => {
+  const applyTheme = useCallback((currentTheme: 'light' | 'dark' | 'system') => {
     const root = window.document.documentElement;
     const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -59,7 +59,7 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-[var(--background-color-light)] dark:bg-[var(--background-color-dark)] text-[var(--text-color-light)] dark:text-[var(--text-color-dark)] transition-colors duration-200 pt-16">
+      <div className="min-h-screen bg-[var(--background-color-light)] dark:bg-[var(--background-color-dark)] text-[var(--text-color-light)] dark:text-[var(--text-color-dark)] transition-colors duration-200 pt-20">
         <Navigation theme={theme} setTheme={setTheme} />
         <Routes>
           <Route path="/" element={<HomePage />} />

@@ -1,15 +1,15 @@
 export const theme = {
   // Colors
   colors: {
-    primary: '#7C3AED',
-    primaryLight: '#E9D5FF',
-    primaryDark: '#5B21B6',
-    secondary: '#1E40AF',
+    primary: '#14123F', // prajana-deep-blue
+    primaryLight: '#7A228B', // prajana-purple
+    primaryDark: '#0B0A24', // darker deep blue
+    secondary: '#01E8EE', // prajana-cyan
     background: '#FFFFFF',
-    backgroundDark: '#1F2937',
-    text: '#1F2937',
-    textLight: '#6B7280',
-    textDark: '#F9FAFB',
+    backgroundDark: '#14123F', // prajana-deep-blue
+    text: '#14123F', // prajana-deep-blue
+    textLight: '#835FA3', // prajana-light-purple
+    textDark: '#DCF9F9', // prajana-ice-blue
     border: '#E5E7EB',
     borderDark: '#374151',
   },

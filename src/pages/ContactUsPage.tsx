@@ -3,56 +3,63 @@ import { Mail, Phone } from 'lucide-react';
 
 export const ContactUsPage: React.FC = () => {
   return (
-    <div className="max-w-3xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">Contact Us</h1>
-      
-      <div className="bg-white dark:bg-gray-800 shadow-xl rounded-lg p-8">
-        <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 text-center">
-          We'd love to hear from you! Whether you have a question about our services, partnerships, or anything else, our team is ready to answer all your questions.
-        </p>
+    <div className="bg-white dark:bg-gray-950 transition-colors duration-200">
+      <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
 
-        <div className="space-y-6">
-          <div className="flex items-center">
-            <Mail className="w-6 h-6 text-indigo-600 dark:text-indigo-400 mr-3" />
-            <div>
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Email Us</h2>
-              <a href="mailto:info@prajana.ai" className="text-indigo-600 dark:text-indigo-400 hover:underline">
-                info@prajana.ai
-              </a>
+        {/* Header */}
+        <header className="mb-12 text-center">
+          <h1 className="text-3xl font-bold text-prajana-deep-blue dark:text-white sm:text-4xl mb-6 relative inline-block">
+            Get in Touch
+            <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gradient-to-r from-prajana-purple to-prajana-cyan rounded-full"></span>
+          </h1>
+          <p className="text-xl text-prajana-deep-blue/60 dark:text-prajana-ice-blue/60 max-w-2xl mx-auto leading-relaxed">
+            We'd love to hear from you! Whether you have a question about our services, partnerships, or anything else, our team is ready to answer all your questions.
+          </p>
+        </header>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Email Card */}
+          <div className="group bg-white dark:bg-prajana-deep-blue/20 p-8 rounded-2xl border border-prajana-purple/10 hover:border-prajana-cyan/30 shadow-sm hover:shadow-xl transition-all duration-300 text-center">
+            <div className="w-16 h-16 bg-prajana-ice-blue/30 dark:bg-prajana-purple/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+              <Mail className="w-8 h-8 text-prajana-purple dark:text-prajana-cyan" />
             </div>
+            <h2 className="text-2xl font-bold text-prajana-deep-blue dark:text-white mb-2">Email Us</h2>
+            <p className="text-prajana-deep-blue/60 dark:text-prajana-ice-blue/60 mb-4">
+              Drop us a line for general inquiries or support.
+            </p>
+            <a href="mailto:info@prajana.ai" className="text-lg font-semibold text-prajana-purple dark:text-prajana-cyan hover:underline decoration-2 underline-offset-4">
+              info@prajana.ai
+            </a>
           </div>
 
-          <div className="flex items-center">
-            <Phone className="w-6 h-6 text-indigo-600 dark:text-indigo-400 mr-3" />
-            <div>
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Call Us</h2>
-              <a href="tel:4256335058" className="text-indigo-600 dark:text-indigo-400 hover:underline">
-                (425) 633-5058
-              </a>
+          {/* Phone Card */}
+          <div className="group bg-white dark:bg-prajana-deep-blue/20 p-8 rounded-2xl border border-prajana-purple/10 hover:border-prajana-cyan/30 shadow-sm hover:shadow-xl transition-all duration-300 text-center">
+            <div className="w-16 h-16 bg-prajana-ice-blue/30 dark:bg-prajana-purple/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+              <Phone className="w-8 h-8 text-prajana-purple dark:text-prajana-cyan" />
             </div>
+            <h2 className="text-2xl font-bold text-prajana-deep-blue dark:text-white mb-2">Call Us</h2>
+            <p className="text-prajana-deep-blue/60 dark:text-prajana-ice-blue/60 mb-4">
+              Speak directly with our team during business hours.
+            </p>
+            <a href="tel:4256335058" className="text-lg font-semibold text-prajana-purple dark:text-prajana-cyan hover:underline decoration-2 underline-offset-4">
+              (425) 633-5058
+            </a>
           </div>
         </div>
 
-        {/* You can add a contact form here later if needed */}
-        {/* <form className="mt-8 space-y-6">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Full name</label>
-            <input type="text" name="name" id="name" autoComplete="name" className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white" />
-          </div>
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
-            <input type="email" name="email" id="email" autoComplete="email" className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white" />
-          </div>
-          <div>
-            <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Message</label>
-            <textarea id="message" name="message" rows={4} className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white"></textarea>
-          </div>
-          <div>
-            <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              Send Message
-            </button>
-          </div>
-        </form> */}
+        {/* Optional Location/Office section could go here if needed */}
+        {/* 
+        <div className="mt-12 bg-prajana-ice-blue/30 dark:bg-prajana-deep-blue/10 rounded-2xl p-8 border border-prajana-purple/10 flex items-start">
+           <MapPin className="w-6 h-6 text-prajana-deep-blue dark:text-white mt-1 mr-4 flex-shrink-0" />
+           <div>
+             <h3 className="text-lg font-bold text-prajana-deep-blue dark:text-white mb-2">Our Office</h3>
+             <p className="text-prajana-deep-blue/70 dark:text-prajana-ice-blue/70">
+               123 AI Boulevard, Tech City, WA 98000
+             </p>
+           </div>
+        </div> 
+        */}
+
       </div>
     </div>
   );
