@@ -10,6 +10,12 @@
   --prajana-cyan: #01E8EE;
   --prajana-teal: #24A4C4;
   --prajana-ice-blue: #DCF9F9;
+  
+  /* Logo-inspired colors */
+  --prajana-orange: #F5A623;
+  --prajana-amber: #F7B84B;
+  --prajana-gray: #4A4A4A;
+  --prajana-dark-gray: #2D2D2D;
 
   /* Default theme variables */
   --background-color-light: white;

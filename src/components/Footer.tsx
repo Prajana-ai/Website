@@ -29,6 +29,7 @@ export function Footer() {
                 { name: 'About Us', path: '/about' },
                 { name: 'Our Works', path: '/works' },
                 { name: 'Vision (KoXist)', path: '/about-koxist' },
+                { name: 'Creators', path: '/creators' },
                 { name: 'Community', path: '/community' }
               ].map((link) => (
                 <li key={link.name}>

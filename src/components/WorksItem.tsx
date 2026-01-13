@@ -1,7 +1,6 @@
 import React from 'react';
+
 import { ArrowRight } from 'lucide-react';
-import { theme } from '../theme';
-import { FeatureList, ScreenshotGrid, PricingCard } from './shared';
 
 interface WorksItemProps {
   title: string;
@@ -14,6 +13,7 @@ interface WorksItemProps {
   };
 }
 
+// Ensure proper props destructuring and types, remove 'theme' if unused
 export function WorksItem({
   title,
   description,
@@ -25,7 +25,7 @@ export function WorksItem({
     <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg overflow-hidden">
       <div className="relative">
         <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 opacity-20" />
-        
+
         {/* Hero Image Grid */}
         <div className="relative">
           <div className="grid grid-cols-2 gap-4">

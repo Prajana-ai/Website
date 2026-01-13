@@ -5,8 +5,7 @@ import { X, Menu, Sun, Moon, Laptop } from 'lucide-react';
 const navigationItems = [
   { text: 'About', href: '/about' },
   { text: 'Works', href: '/works' },
-  { text: 'Creators', href: '/creators' },
-  { text: 'Community', href: '/community' },
+  { text: 'Vision', href: '/about-koxist' },
 ];
 
 interface NavigationProps {
@@ -35,8 +34,8 @@ export function Navigation({ theme, setTheme }: NavigationProps) {
   return (
     <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${isScrolled ? 'py-0' : 'py-2'}`}>
       <div className={`absolute inset-0 transition-opacity duration-300 ${isScrolled
-          ? 'bg-white/80 dark:bg-prajana-deep-blue/80 backdrop-blur-md shadow-lg border-b border-prajana-purple/10'
-          : 'bg-transparent'
+        ? 'bg-white/80 dark:bg-prajana-deep-blue/80 backdrop-blur-md shadow-lg border-b border-prajana-purple/10'
+        : 'bg-transparent'
         }`} />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -60,8 +59,8 @@ export function Navigation({ theme, setTheme }: NavigationProps) {
                   <Link
                     to={item.href}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${location.pathname === item.href
-                        ? 'text-prajana-purple dark:text-prajana-cyan bg-prajana-purple/5 dark:bg-prajana-cyan/10'
-                        : 'text-gray-700 dark:text-gray-200 hover:text-prajana-purple dark:hover:text-prajana-cyan hover:bg-prajana-purple/5 dark:hover:bg-prajana-purple/20'
+                      ? 'text-prajana-purple dark:text-prajana-cyan bg-prajana-purple/5 dark:bg-prajana-cyan/10'
+                      : 'text-gray-700 dark:text-gray-200 hover:text-prajana-purple dark:hover:text-prajana-cyan hover:bg-prajana-purple/5 dark:hover:bg-prajana-purple/20'
                       }`}
                   >
                     {item.text}
@@ -115,8 +114,8 @@ export function Navigation({ theme, setTheme }: NavigationProps) {
               key={item.text}
               to={item.href}
               className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${location.pathname === item.href
-                  ? 'bg-prajana-purple/10 text-prajana-purple dark:text-prajana-cyan'
-                  : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-prajana-purple/20'
+                ? 'bg-prajana-purple/10 text-prajana-purple dark:text-prajana-cyan'
+                : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-prajana-purple/20'
                 }`}
             >
               {item.text}
