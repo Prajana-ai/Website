@@ -10,14 +10,14 @@ export function Hero() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
         <h1 className="text-7xl font-bold text-prajana-deep-blue dark:text-white mb-6 tracking-tight">
-          prajana AI labs
+          prajana <span className="text-prajana-orange">AI</span> labs
         </h1>
         <p className="text-2xl text-prajana-deep-blue/80 dark:text-prajana-ice-blue/80 mb-10 max-w-2xl mx-auto leading-relaxed">
           Where Human Ingenuity and Artificial Intelligence Co-create. Discover the Future, Generated Together.
         </p>
         <Link
           to="/works"
-          className="inline-block bg-prajana-purple text-white px-8 py-3 rounded-full font-medium hover:bg-prajana-light-purple hover:scale-105 transform transition-all shadow-lg hover:shadow-prajana-purple/25"
+          className="inline-block bg-gradient-to-r from-prajana-orange to-prajana-amber text-white px-8 py-3 rounded-full font-medium hover:shadow-xl hover:scale-105 transform transition-all shadow-lg hover:shadow-prajana-orange/50"
         >
           Explore Works
         </Link>
