@@ -50,7 +50,8 @@ export function Footer() {
             <ul className="space-y-3">
               {[
                 { name: 'Privacy Policy', path: '/privacy-policy' },
-                { name: 'Terms of Service', path: '/terms-of-service' }
+                { name: 'Terms of Service', path: '/terms-of-service' },
+                { name: 'Admin', path: '/admin/login' }
               ].map((link) => (
                 <li key={link.name}>
                   <Link
