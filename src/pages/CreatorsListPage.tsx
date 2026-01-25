@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getWorks } from '../lib/workService';
+import { getCreators, CreatorData } from '../lib/creatorService';
 
-interface CreatorInfo {
-  id: string;
-  name: string;
+interface CreatorInfo extends CreatorData {
   workCount: number;
 }
 
@@ -14,32 +13,27 @@ export function CreatorsListPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchCreators = async () => {
+    const fetchData = async () => {
       try {
         setIsLoading(true);
-        const works = await getWorks();
+        const [allWorks, allCreators] = await Promise.all([
+          getWorks(),
+          getCreators()
+        ]);
 
-        const creatorMap = new Map<string, { name: string; workCount: number }>();
-
-        works.forEach(work => {
+        const workCounts = allWorks.reduce((acc, work) => {
           if (work.creatorId) {
-            const creatorDisplayName = work.creatorName || work.creatorId;
-            if (creatorMap.has(work.creatorId)) {
-              const existing = creatorMap.get(work.creatorId)!;
-              creatorMap.set(work.creatorId, { ...existing, workCount: existing.workCount + 1 });
-            } else {
-              creatorMap.set(work.creatorId, { name: creatorDisplayName, workCount: 1 });
-            }
+            acc[work.creatorId] = (acc[work.creatorId] || 0) + 1;
           }
-        });
+          return acc;
+        }, {} as Record<string, number>);
 
-        const uniqueCreators: CreatorInfo[] = Array.from(creatorMap.entries()).map(([id, data]) => ({
-          id,
-          name: data.name,
-          workCount: data.workCount,
-        })).sort((a, b) => a.name.localeCompare(b.name)); // Sort by name
+        const enrichedCreators: CreatorInfo[] = allCreators.map(creator => ({
+          ...creator,
+          workCount: workCounts[creator.id] || 0
+        })).sort((a, b) => a.name.localeCompare(b.name));
 
-        setCreators(uniqueCreators);
+        setCreators(enrichedCreators);
         setError(null);
       } catch (err) {
         console.error('Error fetching creators:', err);
@@ -49,7 +43,7 @@ export function CreatorsListPage() {
       }
     };
 
-    fetchCreators();
+    fetchData();
   }, []);
 
   if (isLoading) {
@@ -72,16 +66,6 @@ export function CreatorsListPage() {
     );
   }
 
-  if (!isLoading && creators.length === 0 && !error) {
-    return (
-      <section className="py-8 bg-white dark:bg-gray-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xl text-prajana-deep-blue/70 dark:text-prajana-ice-blue/70">No creators found at the moment.</p>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <div className="bg-white dark:bg-gray-950 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -97,17 +81,13 @@ export function CreatorsListPage() {
               to={`/creators/${creator.id}`}
               className="group relative flex flex-col bg-white dark:bg-prajana-deep-blue rounded-2xl overflow-hidden border border-prajana-purple/5 dark:border-prajana-ice-blue/5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
-              {/* Image Section */}
               <div className="w-full aspect-square relative overflow-hidden">
-                <div className="absolute inset-0 bg-prajana-purple/5 dark:bg-prajana-deep-blue/50 animate-pulse" />
                 <img
-                  src="/creator-placeholder.png"
+                  src={creator.imageUrl || "/creator-placeholder.png"}
                   alt={creator.name}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-prajana-deep-blue/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
-
-                {/* Overlay Text */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                   <h2 className="text-2xl font-bold text-white mb-1 drop-shadow-md">{creator.name}</h2>
                   <p className="text-prajana-ice-blue/80 font-medium text-sm flex items-center">

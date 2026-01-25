@@ -1,4 +1,4 @@
-import { collection, getDocs, doc, setDoc, updateDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, getDocs, doc, setDoc, updateDoc, deleteDoc, serverTimestamp, query, where, limit } from 'firebase/firestore';
 import { db } from './firebase'; // Your Firebase config and db instance
 import { WorkItemData } from '../types/works'; // Your WorkItemData type
 
@@ -20,14 +20,28 @@ export const getWorks = async (): Promise<WorkItemData[]> => {
   })) as WorkItemData[];
 };
 
+// Fetch a single work by its appId (the slug used in the URL)
+export const getWorkByAppId = async (appId: string): Promise<WorkItemData | null> => {
+  const q = query(collection(db, WORKS_COLLECTION), where("appId", "==", appId), limit(1));
+  const querySnapshot = await getDocs(q);
+
+  if (querySnapshot.empty) {
+    return null;
+  }
+
+  const fetchedDoc = querySnapshot.docs[0];
+  return {
+    id: fetchedDoc.id,
+    ...fetchedDoc.data()
+  } as WorkItemData;
+};
+
 // Add a new work
-// The 'id' from WorkItemData will be used as the document ID in Firestore
 export const addWork = async (workData: WorkItemData): Promise<void> => {
   if (!workData.id) {
     throw new Error('Work data must include an id to be used as the document ID.');
   }
   const workRef = doc(db, WORKS_COLLECTION, workData.id);
-  // Separate id from the rest of the data to avoid storing it within the document fields as well
   const { id, ...dataToStore } = workData;
   await setDoc(workRef, withTimestamps(dataToStore));
 };

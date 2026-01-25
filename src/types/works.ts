@@ -10,6 +10,21 @@ export interface WorkBase {
   iconUrl?: string;
   ctaText?: string;
   ctaLink?: string;
+
+  // Detail page fields (optional in base)
+  bannerImageUrl?: string;
+  longDescription?: string;
+  whatWeLove?: {
+    title: string;
+    content: string;
+  };
+  screenshots?: AppScreenshot[];
+  shareText?: string;
+  quickTip?: {
+    title: string;
+    content: string;
+  };
+  inAppPurchases?: boolean;
 }
 
 export interface LargeFeatureWork extends WorkBase {
@@ -20,18 +35,15 @@ export interface LargeFeatureWork extends WorkBase {
 
 export interface MediumFeatureWork extends WorkBase {
   type: 'medium-feature';
-  // Specific properties for medium feature if any, imageUrl is primary
 }
 
 export interface ListItemWork extends WorkBase {
   type: 'list-item';
   price?: string; // e.g., "$34.99" or "Get"
-  // iconUrl is important here
 }
 
 export interface SmallImageWork extends WorkBase {
   type: 'small-image';
-  // imageUrl is the background, description might be shorter
 }
 
 export type WorkItemData = LargeFeatureWork | MediumFeatureWork | ListItemWork | SmallImageWork;
@@ -43,20 +55,11 @@ export interface AppScreenshot {
 }
 
 export interface AppDetailData extends WorkBase {
-  appId: string; // To be used in URL, e.g., 'sketch-design-toolkit'
-  bannerImageUrl?: string; // Large image at the top
+  appId: string;
   longDescription: string;
   whatWeLove: {
     title: string;
     content: string;
   };
   screenshots: AppScreenshot[];
-  shareText?: string;
-  quickTip?: {
-    title: string;
-    content: string;
-  };
-  inAppPurchases?: boolean;
-  // Potentially more fields like developer, version, compatibility, etc.
 }
-
