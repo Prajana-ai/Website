@@ -1,160 +1,182 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { AppDetailData, AppScreenshot } from '../types/works';
-import { ArrowLeft, Share2, Download } from 'lucide-react';
-
-// Placeholder data - in a real app, this would come from an API or state management
-const appDetailsDatabase: { [key: string]: AppDetailData } = {
-  'sketch-design-toolkit': {
-    id: 'sketch-app',
-    appId: 'sketch-design-toolkit',
-    title: 'Sketch: digital design toolkit',
-    category: 'MAJOR UPDATE',
-    description: 'UI and graphic design app',
-    bannerImageUrl: 'https://via.placeholder.com/1200x500/e0e0e0/888888?text=Sketch+Banner',
-    iconUrl: 'https://via.placeholder.com/128x128/f0f0f0/000000?text=S',
-    longDescription: "Whether you're looking to create a mock-up for your website or app, an eye-catching icon, or a festive party invite, the Apple Design Award winner Sketch is flexible enough to adapt.",
-    whatWeLove: {
-      title: 'What we love',
-      content: "How easy Sketch is to jump into, no matter your level of expertise. Create from scratch or use one of the hundreds of templates for app mock-ups, social media posts, Kanban boards, and more. Leverage an infinite canvas to iterate using layers, vector illustrations, interface elements, and advanced typography. Put your most-used tools right in the toolbar—the app offers over 50 options! And make creativity a true team effort with real-time collaboration and threaded comments that can be applied to any part of a design.",
-    },
-    screenshots: [
-      { id: 'ss1', url: 'https://via.placeholder.com/800x600/cccccc/555555?text=Screenshot+1', caption: 'Main interface' } as AppScreenshot,
-      { id: 'ss2', url: 'https://via.placeholder.com/800x600/d0d0d0/666666?text=Screenshot+2', caption: 'Collaboration view' } as AppScreenshot,
-      { id: 'ss3', url: 'https://via.placeholder.com/800x600/d8d8d8/777777?text=Screenshot+3', caption: 'Symbol library' } as AppScreenshot,
-    ] as AppScreenshot[],
-    shareText: 'Share your prototype with colleagues so they can tweak and comment. Use the companion app Sketch–View and Mirror to see your design on iPhone and iPad.',
-    quickTip: {
-      title: 'Quick tip',
-      content: "Use the new Stacks feature to create groups of elements that automatically adapt to fit their container or content—perfect for everything from buttons to complex combinations of shapes, images, and text. And save time by using Libraries to store the symbols, element styles, frame templates, and other components you use frequently; when you update a component in a library, it's instantly updated across all your documents.",
-    },
-    ctaText: 'Get',
-    ctaLink: '#',
-    inAppPurchases: true,
-  },
-};
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { getWorkByAppId } from '../lib/workService';
+import { WorkItemData } from '../types/works';
+import { ArrowLeft, Share2, Download, ExternalLink } from 'lucide-react';
 
 export const AppDetailPage: React.FC = () => {
   const { appId } = useParams<{ appId: string }>();
-  const appData = appId ? appDetailsDatabase[appId] : null;
+  const [appData, setAppData] = useState<WorkItemData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  if (!appData) {
-    return <div className="p-8 text-center text-red-500">App not found.</div>;
+  useEffect(() => {
+    const fetchApp = async () => {
+      if (!appId) return;
+      try {
+        setIsLoading(true);
+        const data = await getWorkByAppId(appId);
+        if (data) {
+          setAppData(data);
+          setError(null);
+        } else {
+          setError('App not found.');
+        }
+      } catch (err) {
+        console.error('Error fetching app details:', err);
+        setError('Failed to load app details.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchApp();
+  }, [appId]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white dark:bg-gray-950 flex justify-center items-center">
+        <p className="text-xl text-gray-500 animate-pulse">Loading app details...</p>
+      </div>
+    );
+  }
+
+  if (error || !appData) {
+    return (
+      <div className="min-h-screen bg-white dark:bg-gray-950 flex flex-col justify-center items-center p-8">
+        <p className="text-xl text-red-500 mb-4">{error || 'App not found.'}</p>
+        <Link to="/works" className="text-indigo-600 hover:underline flex items-center">
+          <ArrowLeft size={16} className="mr-2" /> Back to Works
+        </Link>
+      </div>
+    );
   }
 
   return (
-    <div className="bg-white dark:bg-gray-950 min-h-screen">
-      {/* Back Button - Optional */} 
-      <button 
-        onClick={() => window.history.back()}
-        className="absolute top-4 left-4 z-10 p-2 bg-black/30 hover:bg-black/50 text-white rounded-full transition-colors"
+    <div className="bg-white dark:bg-gray-950 min-h-screen relative">
+      {/* Back Button */}
+      <Link
+        to="/works"
+        className="absolute top-4 left-4 z-30 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full transition-colors backdrop-blur-sm"
       >
         <ArrowLeft size={24} />
-      </button>
+      </Link>
 
       {/* Banner Image */}
-      {appData.bannerImageUrl && (
-        <div 
-          className="h-[300px] md:h-[400px] bg-cover bg-center relative"
-          style={{ backgroundImage: `url(${appData.bannerImageUrl})` }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-          <div className="absolute bottom-0 left-0 p-6 md:p-10">
-            {appData.category && <p className='text-xs text-gray-200 uppercase tracking-wider font-semibold'>{appData.category}</p>}
-            <h1 className="text-3xl md:text-5xl font-bold text-white mt-1">{appData.title}</h1>
+      <div
+        className="h-[300px] md:h-[450px] bg-cover bg-center relative"
+        style={{ backgroundImage: `url(${appData.bannerImageUrl || appData.imageUrl || 'https://via.placeholder.com/1200x500?text=App+Banner'})` }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 p-6 md:p-10 w-full">
+          <div className="max-w-5xl mx-auto">
+            {appData.category && <p className='text-xs text-indigo-300 uppercase tracking-widest font-bold mb-2'>{appData.category}</p>}
+            <h1 className="text-3xl md:text-6xl font-bold text-white leading-tight">{appData.title}</h1>
           </div>
         </div>
-      )}
+      </div>
 
       {/* App Info Bar */}
-      <div className="bg-gray-100 dark:bg-gray-900 sticky top-0 z-20 shadow-md">
+      <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md sticky top-0 z-20 shadow-sm border-b border-gray-100 dark:border-gray-800">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
-          <div className="flex items-center">
-            {appData.iconUrl && (
-              <img src={appData.iconUrl} alt={`${appData.title} icon`} className="w-14 h-14 rounded-xl mr-4" />
+          <div className="flex items-center min-w-0">
+            {(appData.iconUrl || appData.imageUrl) && (
+              <img src={appData.iconUrl || appData.imageUrl} alt={`${appData.title} icon`} className="w-12 h-12 md:w-14 md:h-14 rounded-2xl mr-4 shadow-md object-cover flex-shrink-0" />
             )}
-            <div>
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white">{appData.title}</h2>
-              <p className="text-xs text-gray-500 dark:text-gray-400">{appData.description}</p>
+            <div className="truncate">
+              <h2 className="text-lg font-bold text-gray-900 dark:text-white truncate">{appData.title}</h2>
+              <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{appData.description}</p>
             </div>
           </div>
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 md:space-x-4 ml-4">
             {appData.ctaText && (
-              <a 
+              <a
                 href={appData.ctaLink || '#'}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2.5 rounded-full text-sm transition-colors flex items-center"
+                target="_blank"
+                rel="noreferrer"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 md:px-8 py-2.5 rounded-full text-sm transition-all transform hover:scale-105 shadow-lg flex items-center"
               >
-                <Download size={16} className="mr-2"/> {appData.ctaText}
+                <Download size={16} className="mr-2" /> {appData.ctaText.toUpperCase()}
               </a>
             )}
-            <button className="p-2.5 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition-colors">
+            <button className="p-2.5 text-gray-400 hover:text-indigo-500 transition-colors">
               <Share2 size={20} />
             </button>
           </div>
         </div>
         {appData.inAppPurchases && (
-            <div className="text-center text-xs text-gray-500 dark:text-gray-400 pb-1">
-                In-App Purchases
-            </div>
+          <div className="text-center text-[10px] font-bold uppercase tracking-tighter text-gray-400 dark:text-gray-500 pb-1">
+            In-App Purchases Included
+          </div>
         )}
       </div>
 
       {/* Main Content Area */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Left Column (Description, What We Love) */}
-          <div className="md:col-span-2 space-y-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {/* Left Column */}
+          <div className="md:col-span-2 space-y-12">
             <section>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                {appData.longDescription}
+              <h3 className="text-sm font-bold uppercase tracking-widest text-indigo-500 mb-4">Description</h3>
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg whitespace-pre-wrap">
+                {appData.longDescription || appData.description}
               </p>
             </section>
-            <section>
-              <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">{appData.whatWeLove.title}</h3>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                {appData.whatWeLove.content}
-              </p>
-            </section>
+
+            {appData.whatWeLove && appData.whatWeLove.content && (
+              <section className="bg-indigo-50/50 dark:bg-indigo-900/10 p-8 rounded-3xl border border-indigo-100/50 dark:border-indigo-900/20">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                  <span className="w-2 h-8 bg-indigo-500 rounded-full mr-4 inline-block"></span>
+                  {appData.whatWeLove.title}
+                </h3>
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed italic text-lg">
+                  "{appData.whatWeLove.content}"
+                </p>
+              </section>
+            )}
           </div>
 
-          {/* Right Column (Screenshots, Quick Tip) - This might need adjustment based on actual content flow */}
-          <div className="space-y-8">
-            {appData.screenshots.length > 0 && (
+          {/* Right Column (Screenshots, Quick Tip) */}
+          <div className="space-y-12">
+            {appData.screenshots && appData.screenshots.length > 0 && (
               <section>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Screenshots</h3>
-                <div className="space-y-4">
-                  {appData.screenshots.map((ss) => (
-                    <div key={ss.id} className="rounded-lg overflow-hidden shadow-md">
-                      <img src={ss.url} alt={ss.caption || 'Screenshot'} className="w-full" />
-                      {ss.caption && <p className="text-xs text-center py-2 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400">{ss.caption}</p>}
+                <h3 className="text-sm font-bold uppercase tracking-widest text-indigo-500 mb-6">Preview</h3>
+                <div className="space-y-6">
+                  {appData.screenshots.map((ss, idx) => (
+                    <div key={ss.id || idx} className="rounded-2xl overflow-hidden shadow-xl border border-gray-100 dark:border-gray-800 group">
+                      <img src={ss.url} alt={ss.caption || 'Screenshot'} className="w-full transform group-hover:scale-105 transition-transform duration-700" />
+                      {ss.caption && <p className="text-[10px] uppercase font-bold text-center py-3 bg-gray-50/50 dark:bg-gray-800/50 text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-800">{ss.caption}</p>}
                     </div>
                   ))}
                 </div>
               </section>
             )}
+
+            {appData.quickTip && appData.quickTip.content && (
+              <section className="bg-amber-50 dark:bg-amber-900/10 p-6 rounded-2xl border border-amber-100 dark:border-amber-900/20">
+                <h3 className="text-lg font-bold text-amber-900 dark:text-amber-200 mb-2">{appData.quickTip.title}</h3>
+                <p className="text-sm text-amber-800 dark:text-amber-300 leading-relaxed">
+                  {appData.quickTip.content}
+                </p>
+              </section>
+            )}
           </div>
         </div>
 
-        {/* Share Text and Quick Tip (Full Width Below Columns) */}
-        {(appData.shareText || appData.quickTip) && (
-            <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700 space-y-8">
-                {appData.shareText && (
-                    <section>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">
-                            {appData.shareText}
-                        </p>
-                    </section>
-                )}
-                {appData.quickTip && (
-                    <section>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">{appData.quickTip.title}</h3>
-                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                            {appData.quickTip.content}
-                        </p>
-                    </section>
-                )}
-            </div>
+        {/* Share Section */}
+        {appData.shareText && (
+          <div className="mt-16 pt-10 border-t border-gray-100 dark:border-gray-800 text-center max-w-2xl mx-auto">
+            <p className="text-gray-500 dark:text-gray-400 text-sm italic leading-relaxed">
+              {appData.shareText}
+            </p>
+          </div>
         )}
+
+        {/* External Links */}
+        <div className="mt-20 flex justify-center">
+          <Link to="/works" className="px-8 py-3 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-bold text-xs uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all shadow-sm">
+            EXPLORE MORE WORKS
+          </Link>
+        </div>
       </div>
     </div>
   );
