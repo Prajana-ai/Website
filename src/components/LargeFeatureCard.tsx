@@ -32,6 +32,8 @@ export const LargeFeatureCard: React.FC<LargeFeatureCardProps> = ({ item }) => {
         {item.ctaText && item.ctaLink && (
           <a
             href={item.ctaLink}
+            target={item.ctaLink.startsWith('http') ? '_blank' : '_self'}
+            rel={item.ctaLink.startsWith('http') ? 'noopener noreferrer' : undefined}
             className="mt-4 inline-block bg-prajana-purple text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-prajana-light-purple transition-colors self-start shadow-md hover:shadow-lg hover:-translate-y-0.5 transform duration-200"
           >
             {item.ctaText}
