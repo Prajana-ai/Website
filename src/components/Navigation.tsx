@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { X, Menu, Sun, Moon, Laptop } from 'lucide-react';
+import { X, Menu, Sun, Moon } from 'lucide-react';
 
 const navigationItems = [
   { text: 'About', href: '/about' },
@@ -9,8 +9,8 @@ const navigationItems = [
 ];
 
 interface NavigationProps {
-  theme: 'light' | 'dark' | 'system';
-  setTheme: (theme: 'light' | 'dark' | 'system') => void;
+  theme: 'light' | 'dark';
+  setTheme: (theme: 'light' | 'dark') => void;
 }
 
 export function Navigation({ theme, setTheme }: NavigationProps) {
@@ -73,17 +73,17 @@ export function Navigation({ theme, setTheme }: NavigationProps) {
 
             <button
               onClick={() => {
-                const themes: ('light' | 'dark' | 'system')[] = ['light', 'dark', 'system'];
-                const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
-                setTheme(nextTheme);
+                setTheme(theme === 'light' ? 'dark' : 'light');
               }}
               className="p-2.5 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-prajana-purple/20 transition-colors focus:outline-none focus:ring-2 focus:ring-prajana-cyan"
               aria-label="Toggle theme"
             >
               <span className="sr-only">Toggle theme</span>
-              {theme === 'light' && <Moon className="w-5 h-5 text-prajana-deep-blue" />}
-              {theme === 'dark' && <Laptop className="w-5 h-5 text-prajana-cyan" />}
-              {theme === 'system' && <Sun className="w-5 h-5 text-prajana-purple" />}
+              {theme === 'light' ? (
+                <Sun className="w-5 h-5 text-prajana-purple" />
+              ) : (
+                <Moon className="w-5 h-5 text-prajana-cyan" />
+              )}
             </button>
 
             <Link
