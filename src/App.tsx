@@ -18,19 +18,18 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import { Footer } from './components/Footer';
 
 function App() {
-  const [theme, setTheme] = useState<'light' | 'dark' | 'system'>(() => {
-    const storedTheme = localStorage.getItem('theme') as 'light' | 'dark' | 'system' | null;
-    if (storedTheme) {
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const storedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    if (storedTheme === 'light' || storedTheme === 'dark') {
       return storedTheme;
     }
-    return 'system';
+    return 'light';
   });
 
-  const applyTheme = useCallback((currentTheme: 'light' | 'dark' | 'system') => {
+  const applyTheme = useCallback((currentTheme: 'light' | 'dark') => {
     const root = window.document.documentElement;
-    const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    if (currentTheme === 'dark' || (currentTheme === 'system' && isSystemDark)) {
+    if (currentTheme === 'dark') {
       root.classList.remove('light');
       root.classList.add('dark');
       root.style.setProperty('--background-color-dark', 'var(--prajana-deep-blue)');
@@ -38,7 +37,7 @@ function App() {
     } else {
       root.classList.remove('dark');
       root.classList.add('light');
-      root.style.setProperty('--background-color-light', 'white'); // Or var(--prajana-ice-blue)
+      root.style.setProperty('--background-color-light', 'white');
       root.style.setProperty('--text-color-light', 'var(--prajana-deep-blue)');
     }
   }, []);
@@ -46,15 +45,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem('theme', theme);
     applyTheme(theme);
-  }, [theme, applyTheme]);
-
-  useEffect(() => {
-    if (theme === 'system') {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      const handleChange = () => applyTheme('system');
-      mediaQuery.addEventListener('change', handleChange);
-      return () => mediaQuery.removeEventListener('change', handleChange);
-    }
   }, [theme, applyTheme]);
 
   return (
