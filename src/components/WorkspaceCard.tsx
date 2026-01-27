@@ -26,6 +26,21 @@ export const WorkspaceCard: React.FC<WorkspaceCardProps> = ({ item }) => {
                 </Link>
             );
         }
+
+        if (item.ctaLink) {
+            const isExternal = item.ctaLink.startsWith('http');
+            return (
+                <a
+                    href={item.ctaLink}
+                    target={isExternal ? '_blank' : '_self'}
+                    rel={isExternal ? 'noopener noreferrer' : undefined}
+                    className={`${className} hover:shadow-xl hover:-translate-y-1 focus:ring-2 focus:ring-prajana-purple focus:ring-opacity-50`}
+                >
+                    {children}
+                </a>
+            );
+        }
+
         return <div className={className}>{children}</div>;
     };
 
@@ -81,7 +96,17 @@ export const WorkspaceCard: React.FC<WorkspaceCardProps> = ({ item }) => {
 
                 {/* Footer / CTA */}
                 <div className="pt-4 mt-auto flex items-center justify-between border-t border-prajana-purple/5 dark:border-prajana-ice-blue/5">
-                    {item.ctaText ? (
+                    {item.ctaText && item.ctaLink ? (
+                        <a
+                            href={item.ctaLink}
+                            target={item.ctaLink.startsWith('http') ? '_blank' : '_self'}
+                            rel={item.ctaLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center text-sm font-semibold text-prajana-purple dark:text-prajana-light-purple group-hover:translate-x-1 transition-transform hover:text-prajana-light-purple dark:hover:text-prajana-ice-blue"
+                        >
+                            {item.ctaText} <ArrowRight className="ml-2 w-4 h-4" />
+                        </a>
+                    ) : item.ctaText ? (
                         <span className="inline-flex items-center text-sm font-semibold text-prajana-purple dark:text-prajana-light-purple group-hover:translate-x-1 transition-transform">
                             {item.ctaText} <ArrowRight className="ml-2 w-4 h-4" />
                         </span>

@@ -7,7 +7,7 @@ interface SmallImageCardProps {
 
 export const SmallImageCard: React.FC<SmallImageCardProps> = ({ item }) => {
   return (
-    <div 
+    <div
       className="relative rounded-lg overflow-hidden shadow-lg h-64 group bg-cover bg-center"
       style={{ backgroundImage: item.imageUrl ? `url(${item.imageUrl})` : undefined }}
     >
@@ -29,7 +29,13 @@ export const SmallImageCard: React.FC<SmallImageCardProps> = ({ item }) => {
         </div>
       </div>
       {item.ctaLink && (
-        <a href={item.ctaLink} className="absolute inset-0" aria-label={item.title}></a>
+        <a
+          href={item.ctaLink}
+          target={item.ctaLink.startsWith('http') ? '_blank' : '_self'}
+          rel={item.ctaLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+          className="absolute inset-0"
+          aria-label={item.title}
+        ></a>
       )}
     </div>
   );

@@ -20,6 +20,8 @@ export const ListItemCard: React.FC<ListItemCardProps> = ({ item }) => {
       {item.price && (
         <a
           href={item.ctaLink || '#'}
+          target={item.ctaLink?.startsWith('http') ? '_blank' : '_self'}
+          rel={item.ctaLink?.startsWith('http') ? 'noopener noreferrer' : undefined}
           className={`ml-4 px-4 py-1.5 rounded-full text-xs font-semibold transition-colors 
             ${item.price.toLowerCase() === 'get'
               ? 'bg-prajana-purple/10 text-prajana-purple hover:bg-prajana-purple/20 dark:bg-prajana-purple dark:text-white dark:hover:bg-prajana-light-purple'
