@@ -2,9 +2,36 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { getWorks, addWork, updateWork, deleteWork } from '../../lib/workService';
 import { getCreators, addCreator, updateCreator, deleteCreator, CreatorData } from '../../lib/creatorService';
-import { WorkItemData, LargeFeatureWork, ListItemWork } from '../../types/works';
+import { AppScreenshot, WorkItemData } from '../../types/works';
 
-const initialWorkFormState: any = {
+interface WorkFormData {
+  id: string;
+  title: string;
+  type: WorkItemData['type'];
+  description: string;
+  category: string;
+  creatorId: string;
+  creatorName: string;
+  imageUrl: string;
+  iconUrl: string;
+  ctaText: string;
+  ctaLink: string;
+  appId: string;
+  subtitle: string;
+  bannerImageUrl: string;
+  longDescription: string;
+  whatWeLove: { title: string; content: string };
+  screenshots: AppScreenshot[];
+  shareText: string;
+  quickTip: { title: string; content: string };
+  inAppPurchases: boolean;
+  features?: string[];
+  price?: string;
+  order?: number;
+  status?: 'published' | 'draft';
+}
+
+const initialWorkFormState: WorkFormData = {
   id: '',
   title: '',
   type: 'medium-feature',
@@ -17,6 +44,7 @@ const initialWorkFormState: any = {
   ctaText: '',
   ctaLink: '',
   appId: '',
+  subtitle: '',
   // Detailed fields
   bannerImageUrl: '',
   longDescription: '',
@@ -28,12 +56,11 @@ const initialWorkFormState: any = {
 };
 
 const AdminDashboardPage: React.FC = () => {
-  const [works, setWorks] = useState<WorkItemData[]>([]);
   const [groupedWorks, setGroupedWorks] = useState<Record<string, WorkItemData[]>>({});
   const [isLoadingWorks, setIsLoadingWorks] = useState(true);
   const [errorWorks, setErrorWorks] = useState<string | null>(null);
   const [showAddWorkForm, setShowAddWorkForm] = useState(false);
-  const [newWork, setNewWork] = useState<any>(initialWorkFormState);
+  const [newWork, setNewWork] = useState<WorkFormData>(initialWorkFormState);
   const [editingWork, setEditingWork] = useState<WorkItemData | null>(null);
 
   const [activeTab, setActiveTab] = useState<'works' | 'creators'>('works');
@@ -60,7 +87,6 @@ const AdminDashboardPage: React.FC = () => {
     setErrorWorks(null);
     try {
       const fetchedWorks = await getWorks();
-      setWorks(fetchedWorks);
       const groups: Record<string, WorkItemData[]> = fetchedWorks.reduce((acc, work) => {
         const category = work.category || 'Uncategorized';
         if (!acc[category]) acc[category] = [];
@@ -109,20 +135,17 @@ const AdminDashboardPage: React.FC = () => {
   const handleWorkInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
 
-    if (name.includes('.')) {
-      const [parent, child] = name.split('.');
-      setNewWork((prev: any) => ({
-        ...prev,
-        [parent]: {
-          ...prev[parent],
-          [child]: value
-        }
-      }));
+    if (name.startsWith('whatWeLove.')) {
+      const child = name.split('.')[1] as keyof WorkFormData['whatWeLove'];
+      setNewWork(prev => ({ ...prev, whatWeLove: { ...prev.whatWeLove, [child]: value } }));
+    } else if (name.startsWith('quickTip.')) {
+      const child = name.split('.')[1] as keyof WorkFormData['quickTip'];
+      setNewWork(prev => ({ ...prev, quickTip: { ...prev.quickTip, [child]: value } }));
     } else if (type === 'checkbox') {
       const checked = (e.target as HTMLInputElement).checked;
-      setNewWork((prev: any) => ({ ...prev, [name]: checked }));
+      setNewWork(prev => ({ ...prev, [name]: checked }));
     } else {
-      setNewWork((prev: any) => ({ ...prev, [name]: value }));
+      setNewWork(prev => ({ ...prev, [name]: value }));
     }
   };
 
@@ -138,10 +161,10 @@ const AdminDashboardPage: React.FC = () => {
       if (editingWork) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { id: _id, ...dataToUpdate } = newWork;
-        await updateWork(editingWork.id, dataToUpdate);
+        await updateWork(editingWork.id, dataToUpdate as Partial<Omit<WorkItemData, 'id'>>);
         setEditingWork(null);
       } else {
-        await addWork(newWork);
+        await addWork(newWork as WorkItemData);
       }
       setShowAddWorkForm(false);
       setNewWork(initialWorkFormState);
@@ -419,7 +442,7 @@ const AdminDashboardPage: React.FC = () => {
                                 id="workFeatures"
                                 name="features"
                                 value={Array.isArray(newWork.features) ? newWork.features.join(', ') : ''}
-                                onChange={(e) => setNewWork((prev: any) => ({ ...prev, features: e.target.value.split(',').map(s => s.trim()) }))}
+                                onChange={(e) => setNewWork(prev => ({ ...prev, features: e.target.value.split(',').map(s => s.trim()) }))}
                                 className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white"
                               />
                             </div>

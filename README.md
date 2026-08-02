@@ -24,12 +24,17 @@ A modern, high-performance personal website and portfolio built with React, Type
    npm install
    ```
 
-2. Start the development server:
+2. Copy the environment template and add the Firebase web app values:
+   ```bash
+   cp .env.example .env.local
+   ```
+
+3. Start the development server:
    ```bash
    npm run dev
    ```
 
-3. Build for production:
+4. Build for production:
    ```bash
    npm run build
    ```
@@ -39,8 +44,9 @@ A modern, high-performance personal website and portfolio built with React, Type
 - `npm run dev`: Starts the Vite development server.
 - `npm run build`: Builds the production-ready assets.
 - `npm run lint`: Runs ESLint to check for code quality issues.
+- `npm run test`: Runs the Vitest suite once.
+- `npm run check`: Runs lint, tests, and the production build.
 - `npm run preview`: Previews the production build locally.
-- `npm run test`: Runs the test suite using Vitest (if configured).
 
 ## 📄 License
 MIT

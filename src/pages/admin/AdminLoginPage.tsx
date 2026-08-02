@@ -26,10 +26,11 @@ const AdminLoginPage: React.FC = () => {
       // Navigation will be handled by the useEffect hook upon user state change
       // Or, you can navigate immediately after successful sign-in if preferred:
       // navigate('/admin/dashboard');
-    } catch (err: any) {
+    } catch (err: unknown) {
       // Provide more specific feedback based on the Firebase error code
       let errorMessage = 'Failed to sign in. Please try again.';
-      switch (err.code) {
+      const code = typeof err === 'object' && err !== null && 'code' in err ? String(err.code) : '';
+      switch (code) {
         case 'auth/invalid-credential':
         case 'auth/user-not-found':
         case 'auth/wrong-password':

@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { X, Menu, Sun, Moon } from 'lucide-react';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 
 const navigationItems = [
-  { text: 'About', href: '/about' },
-  { text: 'Works', href: '/works' },
+  { text: 'Work', href: '/works' },
+  { text: 'Studio', href: '/about' },
   { text: 'Vision', href: '/about-koxist' },
 ];
 
@@ -19,115 +19,43 @@ export function Navigation({ theme, setTheme }: NavigationProps) {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 16);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close menu on route change
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [location]);
-
   return (
-    <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${isScrolled ? 'py-0' : 'py-2'}`}>
-      <div className={`absolute inset-0 transition-opacity duration-300 ${isScrolled
-        ? 'bg-white/80 dark:bg-prajana-deep-blue/80 backdrop-blur-md shadow-lg border-b border-prajana-purple/10'
-        : 'bg-transparent'
-        }`} />
+    <nav aria-label="Primary navigation" className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}>
+      <div className={`mx-auto flex h-16 max-w-7xl items-center justify-between rounded-full px-4 transition-all sm:px-5 ${isScrolled ? 'border border-prajana-deep-blue/10 bg-white/90 shadow-[0_12px_40px_rgba(20,18,63,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-[#111033]/90' : 'bg-transparent'}`}>
+        <Link to="/" className="group flex items-center gap-3 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-prajana-purple" aria-label="Prajana AI Labs, home">
+          <img src="/logo.png" alt="" className="h-10 w-auto transition-transform duration-300 group-hover:rotate-3" />
+          <span className="hidden font-display text-lg font-semibold tracking-tight text-prajana-deep-blue dark:text-white sm:block">prajana <span className="text-prajana-orange">AI</span> labs</span>
+        </Link>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex items-center group">
-              <img
-                src="/logo.png"
-                alt="Prajana AI Logo"
-                className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
-              />
-            </Link>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
-            <ul className="flex space-x-2">
-              {navigationItems.map((item) => (
-                <li key={item.text}>
-                  <Link
-                    to={item.href}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${location.pathname === item.href
-                      ? 'text-prajana-purple dark:text-prajana-cyan bg-prajana-purple/5 dark:bg-prajana-cyan/10'
-                      : 'text-gray-700 dark:text-gray-200 hover:text-prajana-purple dark:hover:text-prajana-cyan hover:bg-prajana-purple/5 dark:hover:bg-prajana-purple/20'
-                      }`}
-                  >
-                    {item.text}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            <div className="h-6 w-px bg-gray-300 dark:bg-gray-700 mx-4" />
-
-            <button
-              onClick={() => {
-                setTheme(theme === 'light' ? 'dark' : 'light');
-              }}
-              className="p-2.5 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-prajana-purple/20 transition-colors focus:outline-none focus:ring-2 focus:ring-prajana-cyan"
-              aria-label="Toggle theme"
-            >
-              <span className="sr-only">Toggle theme</span>
-              {theme === 'light' ? (
-                <Sun className="w-5 h-5 text-prajana-purple" />
-              ) : (
-                <Moon className="w-5 h-5 text-prajana-cyan" />
-              )}
-            </button>
-
-            <Link
-              to="/contact-us"
-              className="ml-6 px-5 py-2.5 rounded-full bg-gradient-to-r from-prajana-purple to-prajana-deep-blue text-white text-sm font-semibold shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
-            >
-              Get in Touch
-            </Link>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-prajana-purple dark:hover:text-prajana-cyan focus:outline-none"
-            >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile menu */}
-      <div className={`md:hidden absolute top-20 left-0 w-full bg-white dark:bg-prajana-deep-blue border-b border-prajana-purple/10 transform transition-all duration-300 ease-in-out ${isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}>
-        <div className="px-4 py-4 space-y-2">
-          {navigationItems.map((item) => (
-            <Link
-              key={item.text}
-              to={item.href}
-              className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${location.pathname === item.href
-                ? 'bg-prajana-purple/10 text-prajana-purple dark:text-prajana-cyan'
-                : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-prajana-purple/20'
-                }`}
-            >
+        <div className="hidden items-center gap-1 md:flex">
+          {navigationItems.map(item => (
+            <Link key={item.href} to={item.href} onClick={() => setIsMenuOpen(false)} aria-current={location.pathname === item.href ? 'page' : undefined} className={`rounded-full px-4 py-2 text-sm font-bold transition ${location.pathname === item.href ? 'bg-prajana-purple/10 text-prajana-purple dark:bg-prajana-cyan/10 dark:text-prajana-cyan' : 'text-prajana-deep-blue/70 hover:bg-prajana-deep-blue/5 hover:text-prajana-deep-blue dark:text-prajana-ice-blue/70 dark:hover:bg-white/5 dark:hover:text-white'}`}>
               {item.text}
             </Link>
           ))}
-          <div className="border-t border-gray-200 dark:border-gray-700 my-2 pt-2">
-            <Link
-              to="/contact-us"
-              className="block w-full text-center px-4 py-3 rounded-lg bg-prajana-purple text-white font-semibold"
-            >
-              Contact Us
-            </Link>
+          <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} className="ml-2 rounded-full p-2.5 text-prajana-purple transition hover:bg-prajana-purple/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-prajana-purple dark:text-prajana-cyan" aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}>
+            {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+          </button>
+          <Link to="/contact-us" className="ml-3 rounded-full bg-prajana-deep-blue px-5 py-2.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-prajana-purple dark:bg-prajana-cyan dark:text-prajana-deep-blue dark:hover:bg-white">Let’s build</Link>
+        </div>
+
+        <button onClick={() => setIsMenuOpen(value => !value)} className="rounded-full p-2 text-prajana-deep-blue focus-visible:outline focus-visible:outline-2 focus-visible:outline-prajana-purple dark:text-white md:hidden" aria-expanded={isMenuOpen} aria-controls="mobile-navigation" aria-label={isMenuOpen ? 'Close navigation' : 'Open navigation'}>
+          {isMenuOpen ? <X /> : <Menu />}
+        </button>
+      </div>
+
+      <div id="mobile-navigation" className={`mx-4 mt-2 overflow-hidden rounded-3xl border border-prajana-deep-blue/10 bg-white/95 shadow-xl backdrop-blur-xl transition-all dark:border-white/10 dark:bg-[#111033]/95 md:hidden ${isMenuOpen ? 'max-h-96 opacity-100' : 'pointer-events-none max-h-0 border-transparent opacity-0'}`}>
+        <div className="space-y-1 p-4">
+          {navigationItems.map(item => <Link key={item.href} to={item.href} onClick={() => setIsMenuOpen(false)} className="block rounded-2xl px-4 py-3 font-bold text-prajana-deep-blue hover:bg-prajana-purple/5 dark:text-white dark:hover:bg-white/5">{item.text}</Link>)}
+          <div className="flex items-center gap-3 border-t border-prajana-deep-blue/10 pt-3 dark:border-white/10">
+            <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} className="rounded-full p-3 text-prajana-purple dark:text-prajana-cyan" aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}>{theme === 'light' ? <Moon /> : <Sun />}</button>
+            <Link to="/contact-us" className="flex-1 rounded-full bg-prajana-deep-blue px-5 py-3 text-center font-bold text-white dark:bg-prajana-cyan dark:text-prajana-deep-blue">Let’s build</Link>
           </div>
         </div>
       </div>

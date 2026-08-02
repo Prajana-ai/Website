@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getWorkByAppId } from '../lib/workService';
 import { WorkItemData } from '../types/works';
-import { ArrowLeft, Share2, Download, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Share2, Download } from 'lucide-react';
 
 export const AppDetailPage: React.FC = () => {
   const { appId } = useParams<{ appId: string }>();
