@@ -1,4 +1,4 @@
-import { collection, getDocs, doc, getDoc, setDoc, updateDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc, setDoc, updateDoc, deleteDoc, serverTimestamp, Timestamp } from 'firebase/firestore';
 import { db } from './firebase';
 
 const CREATORS_COLLECTION = 'creators';
@@ -13,12 +13,12 @@ export interface CreatorData {
         github?: string;
         website?: string;
     };
-    createdAt?: any;
-    updatedAt?: any;
+    createdAt?: Timestamp;
+    updatedAt?: Timestamp;
 }
 
 // Helper to add/update timestamps
-const withTimestamps = (data: any) => ({
+const withTimestamps = (data: Record<string, unknown>) => ({
     ...data,
     updatedAt: serverTimestamp(),
     createdAt: data.createdAt || serverTimestamp(),
@@ -49,7 +49,7 @@ export const addCreator = async (creatorData: CreatorData): Promise<void> => {
         throw new Error('Creator data must include an id to be used as the document ID.');
     }
     const creatorRef = doc(db, CREATORS_COLLECTION, creatorData.id);
-    const { id, ...dataToStore } = creatorData;
+    const dataToStore = Object.fromEntries(Object.entries(creatorData).filter(([key]) => key !== 'id'));
     await setDoc(creatorRef, withTimestamps(dataToStore));
 };
 

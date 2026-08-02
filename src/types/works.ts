@@ -2,10 +2,13 @@ export interface WorkBase {
   id: string; // Unique ID for the item itself
   appId?: string; // Optional: Identifier for linking to a detail page, e.g., 'sketch-design-toolkit'
   title: string;
+  subtitle?: string;
   description?: string;
   category?: string;
   creatorId?: string; // ID of the creator
   creatorName?: string; // Display name of the creator
+  order?: number;
+  status?: 'published' | 'draft';
   imageUrl?: string;
   iconUrl?: string;
   ctaText?: string;
@@ -29,7 +32,6 @@ export interface WorkBase {
 
 export interface LargeFeatureWork extends WorkBase {
   type: 'large-feature';
-  subtitle?: string;
   features?: string[]; // e.g., ['Feature 1', 'Feature 2']
 }
 

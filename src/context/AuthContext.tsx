@@ -1,8 +1,9 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext } from 'react';
-import { User as FirebaseUser } from 'firebase/auth';
+import type { User as FirebaseUser } from 'firebase/auth';
 
 // Define the shape of our User object (can be extended later)
-export interface User extends FirebaseUser {}
+export type User = FirebaseUser;
 
 // Define the shape of the context value
 interface AuthContextType {

@@ -1,70 +1,98 @@
+import { ArrowRight, BrainCircuit, Compass, Layers3 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Hero } from '../sections/Hero';
 
+const products = [
+  {
+    name: 'SourceArc',
+    mark: 'SA',
+    collaborator: 'With Bharat Mabbu',
+    statement: 'One source. Every channel, in its own voice.',
+    description: 'Turn source material into channel-native drafts for X, LinkedIn, Reddit, and Medium—without giving up editorial control.',
+    href: 'https://sourcearc.app',
+    tone: 'source',
+  },
+  {
+    name: 'Smara',
+    mark: 'SM',
+    collaborator: 'With Bharat Mabbu',
+    statement: 'Give your agents a past.',
+    description: 'Hybrid, API-first memory that turns an append-only record into durable facts and a queryable knowledge graph.',
+    href: 'https://smara.dev',
+    tone: 'smara',
+  },
+];
+
+const practice = [
+  { icon: Compass, title: 'Find the real edge', body: 'Start with the collaborator’s lived expertise, not a generic AI use case.' },
+  { icon: BrainCircuit, title: 'Shape the intelligence', body: 'Design the agent, memory, and control model around how people actually decide.' },
+  { icon: Layers3, title: 'Ship the system', body: 'Turn the insight into a product with a clear interface, durable architecture, and room to evolve.' },
+];
 
 export function HomePage() {
   return (
-    <>
-      <main className="w-full">
-        <Hero />
+    <main>
+      <Hero />
 
-        <div className="container mx-auto px-4 pt-4 pb-12">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* About Card */}
-              <div className="bg-white/50 dark:bg-prajana-deep-blue/50 backdrop-blur-sm border border-prajana-deep-blue/10 dark:border-prajana-ice-blue/10 rounded-2xl p-8 text-center hover:shadow-xl hover:border-prajana-purple/30 dark:hover:border-prajana-cyan/30 transition-all duration-300 group">
-                <h3 className="text-xl font-bold text-prajana-deep-blue dark:text-white mb-3 group-hover:text-prajana-purple dark:group-hover:text-prajana-cyan transition-colors">
-                  Our Story
-                </h3>
-                <p className="text-prajana-deep-blue/80 dark:text-prajana-ice-blue/80 mb-6 text-sm leading-relaxed">
-                  Discover the vision behind prajana AI labs and our mission to create a future where human ingenuity and AI co-create.
-                </p>
-                <Link
-                  to="/about"
-                  className="inline-flex items-center text-prajana-purple dark:text-prajana-cyan font-semibold text-sm hover:underline"
-                >
-                  Learn More
-                  <span className="ml-1 transition-transform group-hover:translate-x-1">→</span>
-                </Link>
-              </div>
-
-              {/* Works Card */}
-              <div className="bg-white/50 dark:bg-prajana-deep-blue/50 backdrop-blur-sm border border-prajana-deep-blue/10 dark:border-prajana-ice-blue/10 rounded-2xl p-8 text-center hover:shadow-xl hover:border-prajana-purple/30 dark:hover:border-prajana-cyan/30 transition-all duration-300 group">
-                <h3 className="text-xl font-bold text-prajana-deep-blue dark:text-white mb-3 group-hover:text-prajana-purple dark:group-hover:text-prajana-cyan transition-colors">
-                  Our Works
-                </h3>
-                <p className="text-prajana-deep-blue/80 dark:text-prajana-ice-blue/80 mb-6 text-sm leading-relaxed">
-                  Explore our collection of AI-powered applications and tools designed to enhance human creativity and productivity.
-                </p>
-                <Link
-                  to="/works"
-                  className="inline-flex items-center text-prajana-purple dark:text-prajana-cyan font-semibold text-sm hover:underline"
-                >
-                  View Portfolio
-                  <span className="ml-1 transition-transform group-hover:translate-x-1">→</span>
-                </Link>
-              </div>
-
-              {/* Community Card */}
-              <div className="bg-white/50 dark:bg-prajana-deep-blue/50 backdrop-blur-sm border border-prajana-deep-blue/10 dark:border-prajana-ice-blue/10 rounded-2xl p-8 text-center hover:shadow-xl hover:border-prajana-purple/30 dark:hover:border-prajana-cyan/30 transition-all duration-300 group">
-                <h3 className="text-xl font-bold text-prajana-deep-blue dark:text-white mb-3 group-hover:text-prajana-purple dark:group-hover:text-prajana-cyan transition-colors">
-                  Join Us
-                </h3>
-                <p className="text-prajana-deep-blue/80 dark:text-prajana-ice-blue/80 mb-6 text-sm leading-relaxed">
-                  Become part of our community of creators, developers, and innovators shaping the future of AI collaboration.
-                </p>
-                <Link
-                  to="/community"
-                  className="inline-flex items-center text-prajana-purple dark:text-prajana-cyan font-semibold text-sm hover:underline"
-                >
-                  Get Involved
-                  <span className="ml-1 transition-transform group-hover:translate-x-1">→</span>
-                </Link>
-              </div>
-            </div>
-          </div>
+      <section className="section-shell py-24 sm:py-32" aria-labelledby="selected-work-heading">
+        <div className="section-intro">
+          <p className="eyebrow">Selected collaborations</p>
+          <h2 id="selected-work-heading" className="section-heading">Two ideas. Two working products.</h2>
+          <p className="section-copy">Different problems, built from the same conviction: AI should extend human agency, not flatten it.</p>
         </div>
-      </main>
-    </>
+        <div className="mt-14 grid gap-6 lg:grid-cols-2">
+          {products.map(product => (
+            <a key={product.name} href={product.href} target="_blank" rel="noreferrer" className={`product-case product-case-${product.tone}`}>
+              <div className="product-case-topline">
+                <span>{product.collaborator}</span><ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </div>
+              <div className="product-case-mark" aria-hidden="true">{product.mark}</div>
+              <div className="relative z-10 mt-16 max-w-lg">
+                <h3 className="font-display text-4xl font-semibold tracking-tight">{product.name}</h3>
+                <p className="mt-3 text-xl font-semibold">{product.statement}</p>
+                <p className="mt-4 leading-7 opacity-75">{product.description}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+        <div className="mt-10 text-center">
+          <Link to="/works" className="text-link">See all work <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+        </div>
+      </section>
+
+      <section className="border-y border-prajana-deep-blue/10 bg-prajana-ice-blue/25 py-24 dark:border-white/10 dark:bg-white/[0.025] sm:py-32" aria-labelledby="practice-heading">
+        <div className="section-shell grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
+          <div className="section-intro lg:sticky lg:top-32 lg:self-start">
+            <p className="eyebrow">The practice</p>
+            <h2 id="practice-heading" className="section-heading">Collaboration is the method—not the tagline.</h2>
+            <p className="section-copy">Prajana works at the seam between domain knowledge and agentic technology.</p>
+          </div>
+          <ol className="divide-y divide-prajana-deep-blue/10 border-y border-prajana-deep-blue/10 dark:divide-white/10 dark:border-white/10">
+            {practice.map((item, index) => (
+              <li key={item.title} className="grid gap-5 py-8 sm:grid-cols-[4rem_1fr] sm:py-10">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-prajana-purple/20 bg-white text-prajana-purple dark:bg-white/5 dark:text-prajana-cyan">
+                  <item.icon className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <div>
+                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-prajana-purple/70 dark:text-prajana-cyan/70">Phase {index + 1}</p>
+                  <h3 className="mt-2 text-2xl font-bold text-prajana-deep-blue dark:text-white">{item.title}</h3>
+                  <p className="mt-3 max-w-xl leading-7 text-prajana-deep-blue/65 dark:text-prajana-ice-blue/65">{item.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="section-shell py-24 sm:py-32">
+        <div className="collaboration-cta">
+          <p className="eyebrow text-prajana-cyan">Have an idea with an unfair human advantage?</p>
+          <h2 className="font-display mt-5 max-w-4xl text-4xl font-semibold leading-tight tracking-tight text-white sm:text-6xl">Bring the expertise. We’ll help shape the intelligence around it.</h2>
+          <Link to="/contact-us" className="mt-10 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-bold text-prajana-deep-blue transition hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+            Start a conversation <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </div>
+      </section>
+    </main>
   );
 }

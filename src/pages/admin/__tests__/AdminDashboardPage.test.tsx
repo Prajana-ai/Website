@@ -7,6 +7,7 @@ import AdminDashboardPage from '../AdminDashboardPage';
 vi.mock('../../../context/AuthContext', () => ({
   useAuth: () => ({
     user: { uid: 'test-uid', email: 'test@example.com' },
+    loading: false,
     signOut: vi.fn(),
     // Add any other methods/properties used by the component
   }),
@@ -21,37 +22,24 @@ vi.mock('react-router-dom', async () => {
   };
 });
 
-// Mock Firestore functions
-vi.mock('../../../lib/firebase', () => ({
-  db: {
-    collection: vi.fn().mockReturnThis(),
-    doc: vi.fn().mockReturnThis(),
-    get: vi.fn().mockResolvedValue({
-      exists: true,
-      data: () => ({ works: [] }),
-    }),
-    onSnapshot: vi.fn((_, callback) => {
-      callback({
-        docs: [
-          {
-            id: 'test-id',
-            data: () => ({
-              title: 'Test Work',
-              description: 'Test Description',
-              type: 'LargeFeatureWork',
-            }),
-          },
-        ],
-      });
-      return vi.fn(); // Return unsubscribe function
-    }),
-  },
+vi.mock('../../../lib/workService', () => ({
+  getWorks: vi.fn().mockResolvedValue([]),
+  addWork: vi.fn(),
+  updateWork: vi.fn(),
+  deleteWork: vi.fn(),
+}));
+
+vi.mock('../../../lib/creatorService', () => ({
+  getCreators: vi.fn().mockResolvedValue([]),
+  addCreator: vi.fn(),
+  updateCreator: vi.fn(),
+  deleteCreator: vi.fn(),
 }));
 
 describe('AdminDashboardPage', () => {
   it('renders the dashboard page with a heading', async () => {
     render(
-      <MemoryRouter>
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <AdminDashboardPage />
       </MemoryRouter>
     );

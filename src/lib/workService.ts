@@ -5,7 +5,7 @@ import { WorkItemData } from '../types/works'; // Your WorkItemData type
 const WORKS_COLLECTION = 'works';
 
 // Helper to add/update timestamps
-const withTimestamps = (data: any) => ({
+const withTimestamps = (data: Record<string, unknown>) => ({
   ...data,
   updatedAt: serverTimestamp(),
   createdAt: data.createdAt || serverTimestamp(), // Keep original createdAt if it exists (for updates)
@@ -42,7 +42,7 @@ export const addWork = async (workData: WorkItemData): Promise<void> => {
     throw new Error('Work data must include an id to be used as the document ID.');
   }
   const workRef = doc(db, WORKS_COLLECTION, workData.id);
-  const { id, ...dataToStore } = workData;
+  const dataToStore = Object.fromEntries(Object.entries(workData).filter(([key]) => key !== 'id'));
   await setDoc(workRef, withTimestamps(dataToStore));
 };
 
