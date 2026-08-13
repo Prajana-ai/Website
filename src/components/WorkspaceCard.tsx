@@ -46,7 +46,7 @@ export const WorkspaceCard: React.FC<WorkspaceCardProps> = ({ item }) => {
                     <img
                         src={item.imageUrl}
                         alt={item.title}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className={`absolute inset-0 w-full h-full transition-transform duration-500 group-hover:scale-105 ${item.id === 'watchhub' ? 'object-contain bg-[#070b18] p-8' : 'object-cover'}`}
                     />
                     {/* Overlay gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-prajana-deep-blue/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

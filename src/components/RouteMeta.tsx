@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 const pageMeta: Record<string, { title: string; description: string }> = {
   '/': { title: 'Prajana AI Labs — Intelligence, built together', description: 'Prajana AI Labs turns shared human insight into useful, trustworthy AI products.' },
-  '/works': { title: 'Work — Prajana AI Labs', description: 'Explore AI products shaped through collaboration, including SourceArc and Smara.' },
+  '/works': { title: 'Work — Prajana AI Labs', description: 'Explore Prajana products shaped through collaboration, including WatchHub, SourceArc, and Smara.' },
   '/about': { title: 'Studio — Prajana AI Labs', description: 'Meet the practice behind Prajana AI Labs and our approach to human–AI collaboration.' },
   '/about-koxist': { title: 'KoXist Vision — Prajana AI Labs', description: 'A vision for productive, ethical coexistence between humans and AI agents.' },
   '/contact-us': { title: 'Start a collaboration — Prajana AI Labs', description: 'Bring your expertise and explore a product collaboration with Prajana AI Labs.' },

@@ -1,6 +1,18 @@
 {
   "rewrites": [
     {
+      "source": "/watchhub",
+      "destination": "/watchhub/index.html"
+    },
+    {
+      "source": "/watchhub/privacy",
+      "destination": "/watchhub/privacy/index.html"
+    },
+    {
+      "source": "/watchhub/support",
+      "destination": "/watchhub/support/index.html"
+    },
+    {
       "source": "/((?!api/|_next/|static/|favicon.ico|sw.js).*)",
       "destination": "/index.html"
     }

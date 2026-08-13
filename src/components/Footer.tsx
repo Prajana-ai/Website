@@ -28,6 +28,7 @@ export function Footer() {
           <div>
             <h2 className="font-mono text-xs font-bold uppercase tracking-[0.16em] text-prajana-deep-blue/45 dark:text-prajana-ice-blue/45">Products</h2>
             <ul className="mt-5 space-y-3">
+              <li><a href="/watchhub" className="font-semibold text-prajana-deep-blue/70 transition hover:text-prajana-purple dark:text-prajana-ice-blue/70 dark:hover:text-prajana-cyan">WatchHub ↗</a></li>
               <li><a href="https://sourcearc.app" target="_blank" rel="noreferrer" className="font-semibold text-prajana-deep-blue/70 transition hover:text-prajana-purple dark:text-prajana-ice-blue/70 dark:hover:text-prajana-cyan">SourceArc ↗</a></li>
               <li><a href="https://smara.dev" target="_blank" rel="noreferrer" className="font-semibold text-prajana-deep-blue/70 transition hover:text-prajana-purple dark:text-prajana-ice-blue/70 dark:hover:text-prajana-cyan">Smara ↗</a></li>
             </ul>
