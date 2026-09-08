@@ -21,11 +21,13 @@ describe('WatchHub public pages', () => {
     expect(html).toContain('<title>WatchHub Privacy Policy</title>');
     expect(html).toContain('href="https://prajana.ai/watchhub/privacy"');
     expect(html).toContain('September 4, 2026');
-    expect(html).toContain('Google Sign-In or Firebase email/password authentication');
+    expect(html).toContain('Google Sign-In, Sign in with Apple, or Firebase email/password authentication');
     expect(html).toContain('phone number, device identifier, coarse location');
     expect(html).toContain('limited usage and diagnostic information');
     expect(html).toContain('non-persistent system web view');
     expect(html).toContain('Google Sign-In, Firebase Authentication, and Google Cloud');
+    expect(html).toContain('delete their WatchHub account inside the app under Settings');
+    expect(html).toContain('revokes the associated Apple authorization where applicable');
     expect(html).toContain('mailto:bharat@prajana.ai');
     expect(html).toContain('This policy is publicly available');
   });
