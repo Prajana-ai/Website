@@ -15,16 +15,19 @@ describe('WatchHub public pages', () => {
     expect(html).toContain('not endorsed or certified by TMDB');
   });
 
-  it('publishes the complete privacy policy without the internal implementation note', () => {
+  it('publishes the latest complete privacy policy', () => {
     const html = readPublicPage('watchhub/privacy/index.html');
 
     expect(html).toContain('<title>WatchHub Privacy Policy</title>');
     expect(html).toContain('href="https://prajana.ai/watchhub/privacy"');
-    expect(html).toContain('August 12, 2026');
-    expect(html).toContain('Google authentication');
-    expect(html).toContain('Firebase Authentication and Google Cloud Platform');
+    expect(html).toContain('September 4, 2026');
+    expect(html).toContain('Google Sign-In or Firebase email/password authentication');
+    expect(html).toContain('phone number, device identifier, coarse location');
+    expect(html).toContain('limited usage and diagnostic information');
+    expect(html).toContain('non-persistent system web view');
+    expect(html).toContain('Google Sign-In, Firebase Authentication, and Google Cloud');
     expect(html).toContain('mailto:bharat@prajana.ai');
-    expect(html).not.toContain('This policy is publicly available');
+    expect(html).toContain('This policy is publicly available');
   });
 
   it('publishes support information and a real email link', () => {
