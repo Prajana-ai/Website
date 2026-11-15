@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/natoalpha",
+      "destination": "/natoalpha/index.html"
+    },
+    {
+      "source": "/natoalpha/demo",
+      "destination": "/natoalpha/embed-demo.html"
+    },
+    {
       "source": "/watchhub",
       "destination": "/watchhub/index.html"
     },
@@ -13,7 +21,7 @@
       "destination": "/watchhub/support/index.html"
     },
     {
-      "source": "/((?!api/|_next/|static/|favicon.ico|sw.js).*)",
+      "source": "/((?!natoalpha/|api/|_next/|static/|favicon.ico|sw.js).*)",
       "destination": "/index.html"
     }
   ]

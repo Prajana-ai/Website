@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Spell this code — NATOAlpha embed demo</title>
+  <meta name="description" content="Try a self-hostable phonetic spelling button beside a booking reference or order number.">
+  <link rel="icon" href="/natoalpha/icon.svg"><link rel="stylesheet" href="/natoalpha/embed-demo.css">
+  <script type="module" src="/natoalpha/embed-demo.mjs?v=2"></script>
+</head>
+<body>
+  <header class="masthead"><nav class="return-links" aria-label="Return navigation"><a href="/natoalpha">← Back to NATOAlpha</a><a class="prajana-home" href="https://www.prajana.ai/">Prajana home</a></nav><span>Website integration demo</span></header>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">For the moment a customer calls</p>
+      <h1>A little button.<br>A clearer conversation.</h1>
+      <p>Put phonetic spelling right beside the code your customer needs. They stay on your page, open the guide, and read it aloud.</p>
+    </section>
+    <div class="workspace">
+      <section class="preview" aria-labelledby="preview-title">
+        <div class="scenario-bar"><h2 id="preview-title">Try the customer experience</h2><span>Fictional examples</span></div>
+        <div class="tabs" role="group" aria-label="Example website">
+          <button type="button" data-scenario="booking" aria-pressed="true">Flight booking</button>
+          <button type="button" data-scenario="order" aria-pressed="false">Online order</button>
+        </div>
+        <article class="booking" id="booking-example">
+          <div class="merchant">Northline <span>Example airline</span></div>
+          <div class="success"><span aria-hidden="true">✓</span> Your trip is confirmed</div>
+          <h3>San Francisco <span aria-hidden="true">→</span> New York</h3>
+          <p class="trip-detail">SFO to JFK · Sample journey · 1 traveller</p>
+          <div class="reference-block"><p>Booking reference</p><div class="reference-actions"><strong id="booking-code">N375B8</strong><script id="booking-widget" src="/natoalpha/natoalpha.js" data-code="N375B8" data-reference-label="Booking reference"></script></div></div>
+          <p class="support-note">Calling about your trip? Have your booking reference ready. Use “Spell this code” for a guide you can read to the representative.</p>
+        </article>
+        <article class="order" id="order-example" hidden>
+          <div class="merchant">Field &amp; Form <span>Example shop</span></div>
+          <div class="success"><span aria-hidden="true">✓</span> Your order is confirmed</div>
+          <h3>Thanks for your order.</h3>
+          <p class="trip-detail">A sample order for the things you use every day.</p>
+          <div class="reference-block"><p>Order reference</p><div class="reference-actions"><strong>AA11359</strong><script src="/natoalpha/natoalpha.js" data-code="AA11359" data-reference-label="Order reference"></script></div></div>
+          <p class="support-note">Need to call customer care? Open the spelling guide beside your reference and take it one character at a time.</p>
+        </article>
+        <p class="preview-caption">These are sample websites. The button is the actual embeddable widget.</p>
+      </section>
+      <aside class="setup" aria-labelledby="setup-title">
+        <h2 id="setup-title">Make it your code.</h2>
+        <p>Change the booking reference to test how it feels in context.</p>
+        <form id="code-form"><label for="sample-code">Reference code</label><div class="code-controls"><input id="sample-code" name="code" value="N375B8" maxlength="128" autocapitalize="characters" spellcheck="false" autocomplete="off" aria-describedby="code-help form-status"><button type="submit">Apply</button></div><p id="code-help">Letters and numbers only. Try AA11359 for repeated characters.</p><p id="form-status" role="status"></p></form>
+        <div class="integration">
+          <h2>Add it to any website.</h2>
+          <p>Place one script tag beside each code. Everything is included; you can also download the file to host it yourself.</p>
+          <pre><code id="snippet">&lt;script src="https://www.prajana.ai/natoalpha/natoalpha.js"
+  data-code="N375B8"&gt;&lt;/script&gt;</code></pre>
+          <button id="copy-snippet" class="copy" type="button">Copy integration snippet</button>
+          <p id="copy-status" role="status"></p>
+          <p><a href="/natoalpha/embed/README.txt">Integration instructions</a> · <a href="/natoalpha/natoalpha-widget.zip" download>Download widget files</a></p>
+        </div>
+      </aside>
+    </div>
+    <section class="details"><div><h2>On the page. In the moment.</h2><p>No app installation, context-menu hunt, or copying between screens. The guide opens over the page your customer is already using.</p></div><div><h2>Your website, your reference.</h2><p>Booking references, order numbers, registration IDs: use the same widget anywhere. Code values are processed locally without analytics, storage, or network requests.</p></div></section>
+  </main>
+  <footer class="page-footer"><a href="/natoalpha">← Back to NATOAlpha</a><p>Keyboard tip: Tab to the button, press Enter to open, and Escape to close.</p></footer>
+</body>
+</html>
