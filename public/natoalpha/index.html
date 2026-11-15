@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101a2e">
+<title>NATOAlpha — Every character, clearly.</title>
+<meta name="description" content="Turn confirmation codes, order numbers and serial numbers into clear NATO phonetic words. Try NATOAlpha in your browser. iPhone and Android apps in development.">
+<meta property="og:title" content="NATOAlpha — Every character, clearly."><meta property="og:description" content="For the moment they ask: can you spell that? Turn your code into words everyone can follow."><meta property="og:type" content="website">
+<meta property="og:url" content="https://www.prajana.ai/natoalpha"><link rel="canonical" href="https://www.prajana.ai/natoalpha">
+<link rel="icon" type="image/svg+xml" href="/natoalpha/icon.svg"><link rel="stylesheet" href="/natoalpha/styles.css">
+<script type="module" src="/natoalpha/app.mjs"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header wrap">
+  <a href="#" class="brand" aria-label="NATOAlpha home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="currentColor"/><path d="M9 23V9h4l7 9V9h4v14h-4l-7-9v9z" fill="white"/></svg>NATOAlpha</a>
+  <nav aria-label="Main navigation"><a href="#how-it-works">How it works</a><a href="/natoalpha/demo">For websites</a><a href="#mobile">Mobile apps</a><a class="nav-try" href="#try">Try a code <span aria-hidden="true">↗</span></a></nav>
+</header>
+<main id="main">
+<section class="hero wrap" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <p class="opening"><span class="signal" aria-hidden="true"></span> For the moment they ask, “Can you spell that?”</p>
+    <h1 id="hero-title">Every character.<br>Perfectly clear.</h1>
+    <p class="hero-description">Your booking reference. That order number. One tiny code, one big misunderstanding. Turn it into words everyone can follow.</p>
+    <div class="hero-actions"><a class="button primary" href="#try">Try your code <span aria-hidden="true">↗</span></a><a class="text-link" href="#how-it-works">See how it works <span aria-hidden="true">↓</span></a></div>
+    <p class="hero-note">No signup. No code leaves your browser.</p>
+    <div class="mini-dialogue" aria-label="Example spelling clarification"><span class="dialogue-line">“Was that B or D?”</span><span class="dialogue-answer">“B, as in Bravo.”<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+  </div>
+  <div class="demo-shell" id="try">
+    <div class="ticket-top"><span class="ticket-brand">NATOAlpha</span><span class="ticket-tag">Try it live</span></div>
+    <div class="demo-editor"><label for="code">Your code, made clear</label><div class="input-line"><input id="code" type="text" value="N375B8" placeholder="Enter a code" maxlength="32" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="characters" aria-describedby="code-help"><button id="clear" class="clear" type="button" aria-label="Clear code">×</button></div><div class="code-meta"><span id="code-help">Letters and numbers. Just like your reference.</span><span id="count">6 characters</span></div></div>
+    <div class="ticket-perforation" aria-hidden="true"></div>
+    <ol id="translation" class="translation" aria-label="Phonetic spelling"></ol>
+    <p id="empty" class="demo-empty" hidden>Your phonetic spelling will appear here.</p>
+    <div class="demo-tools"><button class="example" data-code="N375B8" type="button">N375B8</button><button class="example" data-code="W7K9XB" type="button">W7K9XB</button><button class="example" data-code="AIRLINE" type="button">AIRLINE</button><button id="call-view" type="button" aria-pressed="false">Call view <span aria-hidden="true">↗</span></button></div>
+    <p class="demo-footnote" id="demo-note">Tap a row to keep your place.</p><p class="sr-only" id="demo-status" role="status" aria-live="polite"></p>
+    <noscript><p class="noscript">Enable JavaScript to use the live translator.</p></noscript>
+  </div>
+</section>
+<section class="context-strip" aria-label="Useful for many kinds of codes"><div class="wrap context-inner"><span>Small codes. Everyday conversations.</span><span>Booking references</span><span>Order numbers</span><span>Serial numbers</span><span>Registration IDs</span></div></section>
+<section id="how-it-works" class="how wrap" aria-labelledby="how-title">
+  <div class="section-heading"><p class="section-kicker">From “say that again” to understood.</p><h2 id="how-title">A little less repeating.<br>A lot more getting on with it.</h2></div>
+  <div class="steps"><article><span class="step-number">01</span><h3>Bring your code.</h3><p>Type or paste your reference. Lowercase becomes uppercase. Extra punctuation falls away.</p></article><article><span class="step-number">02</span><h3>See the words.</h3><p>N becomes November. B becomes Bravo. A clear pronunciation sits right beside every word.</p></article><article><span class="step-number">03</span><h3>Say it with confidence.</h3><p>Read it aloud to the person on the other end. Tap each row to keep track of where you are.</p></article></div>
+</section>
+<section class="conversation" aria-labelledby="conversation-title"><div class="wrap conversation-grid"><div><p class="section-kicker light-kicker">Made for the other end of the line.</p><h2 id="conversation-title">The next call<br>can be simpler.</h2><p>Put the call on speaker or use headphones. Keep your code in view and read at your own pace. No racing between notes, emails and tiny text.</p><a href="#try" class="button light-button">Give it a try <span aria-hidden="true">↗</span></a></div><div class="spoken-example" aria-label="Example of reading code N375B8"><span class="reference-label">Reference N375B8</span><p>November.<br>Three.<br>Seven.<br>Five.<br>Bravo.<br>Eight.</p><div class="pronunciation-note"><span>3 · TREE</span><span>5 · FIFE</span><span>9 · NINER</span></div><span class="aviation-note">Aviation pronunciations for the tricky digits.</span></div></div></section>
+<section id="mobile" class="mobile wrap" aria-labelledby="mobile-title"><div class="section-heading"><p class="section-kicker">One focused utility. In your pocket.</p><h2 id="mobile-title">Built for the call.<br>And the code before it.</h2><p>The iPhone and Android apps are in development. Try the browser demo today; store downloads will be added when the apps launch.</p></div><div class="platforms"><article class="platform"><div class="platform-heading"><span class="platform-symbol" aria-hidden="true">iOS</span><span class="development">In development</span></div><h3>NATOAlpha for iPhone</h3><p>A single-screen reader, a place marker, and a reading mode that keeps the screen awake while the app is active.</p><div class="platform-detail"><span>iOS 16+</span><span>Store link coming at launch</span></div></article><article class="platform"><div class="platform-heading"><span class="platform-symbol" aria-hidden="true">Android</span><span class="development">In development</span></div><h3>NATOAlpha for Android</h3><p>The same focused reader, with sharing and a “Spell with NATOAlpha” text-selection action in compatible apps.</p><div class="platform-detail"><span>Android 6.0+</span><span>Store link coming at launch</span></div></article></div></section>
+<section id="privacy" class="privacy wrap" aria-labelledby="privacy-title"><div class="privacy-symbol" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="10" y="21" width="28" height="22" rx="5" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M16 21v-7a8 8 0 0 1 16 0v7M24 29v7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></div><div><h2 id="privacy-title">Your code is your business.</h2><p>This demo translates entirely in your browser. We don’t send your input to a server. The mobile readers work offline, without an account, and save the last code on your device so you can pick up where you left off.</p></div></section>
+<section class="faq wrap" aria-labelledby="faq-title"><h2 id="faq-title">A few things, clearly answered.</h2><div class="faq-list"><details><summary>What is the NATO phonetic alphabet?</summary><p>It assigns a recognizable word to each letter: Alfa, Bravo, Charlie, and so on. Saying “B as in Bravo” is easier to distinguish than saying the letter B by itself over a call.</p></details><details><summary>Why TREE, FIFE and NINER?</summary><p>These are aviation pronunciations for three, five and nine. They help distinguish similar sounds over radio or a noisy connection. NATOAlpha shows both the familiar digit word and its pronunciation.</p></details><details><summary>Can I use it while calling on the same phone?</summary><p>Yes. Switch your call to speakerphone or headphones and open the reader. The mobile reading mode keeps the screen awake while the app is active. NATOAlpha is a visual aid; it doesn’t place calls, detect them, or send spoken audio into a call.</p></details><details><summary>Where can I download the app?</summary><p>The mobile apps are in development and aren’t listed in the stores yet. The live translator on this page is available now, with no installation.</p></details><details><summary>Does it read my clipboard or collect my code?</summary><p>This website only uses what you type or paste into its field, and translates it locally. It has no analytics or account system. The mobile apps save your most recent code locally; Clear removes that saved reading session.</p></details></div></section>
+<section class="closing wrap"><div><h2>Less “say that again.”<br>More “got it.”</h2><p>Try the code you’ll need for your next call.</p></div><a class="button primary" href="#try">Make it clear <span aria-hidden="true">↗</span></a></section>
+</main>
+<footer class="wrap site-footer"><a href="#" class="brand">NATOAlpha<span class="brand-dot" aria-hidden="true">.</span></a><p>A small utility by <a href="https://www.prajana.ai">Prajana AI Labs</a>.</p><nav aria-label="Footer navigation"><a href="#privacy">Privacy</a><a href="#mobile">Mobile apps</a><a href="#try">Try the translator</a></nav></footer>
+</body></html>
