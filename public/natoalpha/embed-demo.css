@@ -9,6 +9,9 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid 
 .masthead { padding-top: 26px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
 .masthead a { color: #142238; font-weight: 800; font-size: 21px; text-decoration: none; }
 .masthead span { color: #5d6979; font-size: 13px; }
+.return-links { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.return-links a { font-size: 15px; }
+.return-links .prajana-home { font-size: 13px; font-weight: 500; color: #526176; text-decoration: underline; }
 .intro { padding: 62px 0 42px; max-width: 710px; }
 .eyebrow { color: #245bd6; font-size: 15px; font-weight: 650; }
 h1 { font-size: clamp(36px, 5vw, 62px); letter-spacing: -.045em; line-height: 1.06; margin: 14px 0 22px; }
@@ -55,4 +58,4 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; padding: 18px; color: #e7e
 .page-footer p { margin: 0; }
 [hidden] { display: none !important; }
 @media(max-width: 850px) { .workspace { grid-template-columns: 1fr; gap: 30px; } .intro { padding-top: 36px; } .details { gap: 24px; } }
-@media(max-width: 480px) { .masthead, main, .page-footer { padding-inline: 18px; } .masthead { align-items: start; } .masthead span { max-width: 110px; text-align: right; } .intro { padding-bottom: 24px; } .intro > p:last-child { font-size: 17px; } .scenario-bar { align-items: start; } .scenario-bar span { max-width: 80px; text-align: right; } .booking, .order { padding-inline: 20px; } .merchant { margin-inline: -20px; padding-inline: 20px; } h3 { font-size: 25px; } .details { grid-template-columns: 1fr; padding-block: 36px; } .page-footer { flex-direction: column; } }
+@media(max-width: 480px) { .masthead, main, .page-footer { padding-inline: 18px; } .masthead { align-items: start; flex-direction: column; gap: 10px; } .intro { padding-bottom: 24px; } .intro > p:last-child { font-size: 17px; } .scenario-bar { align-items: start; } .scenario-bar span { max-width: 80px; text-align: right; } .booking, .order { padding-inline: 20px; } .merchant { margin-inline: -20px; padding-inline: 20px; } h3 { font-size: 25px; } .details { grid-template-columns: 1fr; padding-block: 36px; } .page-footer { flex-direction: column; } }
