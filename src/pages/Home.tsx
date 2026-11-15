@@ -21,6 +21,24 @@ const products = [
     href: 'https://smara.dev',
     tone: 'smara',
   },
+  {
+    name: 'WatchHub',
+    mark: 'WH',
+    collaborator: 'Prajana product',
+    statement: 'A century of screen stories, one private watchlist.',
+    description: 'Explore movies and television across decades, then keep a personal, offline-ready watchlist on your iPhone.',
+    href: '/watchhub',
+    tone: 'watchhub',
+  },
+  {
+    name: 'NATOAlpha',
+    mark: 'NA',
+    collaborator: 'Prajana utility',
+    statement: 'Every character, perfectly clear.',
+    description: 'Turn booking references, order numbers, and serial numbers into NATO phonetic words—privately, right in your browser.',
+    href: '/natoalpha/',
+    tone: 'natoalpha',
+  },
 ];
 
 const practice = [
@@ -36,13 +54,13 @@ export function HomePage() {
 
       <section className="section-shell py-24 sm:py-32" aria-labelledby="selected-work-heading">
         <div className="section-intro">
-          <p className="eyebrow">Selected collaborations</p>
-          <h2 id="selected-work-heading" className="section-heading">Two ideas. Two working products.</h2>
-          <p className="section-copy">Different problems, built from the same conviction: AI should extend human agency, not flatten it.</p>
+          <p className="eyebrow">Products and utilities</p>
+          <h2 id="selected-work-heading" className="section-heading">Four useful ideas, out in the world.</h2>
+          <p className="section-copy">Different scales and different problems, built with the same instinct: make technology clearer, more capable, and more human-directed.</p>
         </div>
         <div className="mt-14 grid gap-6 lg:grid-cols-2">
           {products.map(product => (
-            <a key={product.name} href={product.href} target="_blank" rel="noreferrer" className={`product-case product-case-${product.tone}`}>
+            <a key={product.name} href={product.href} {...(product.href.startsWith('http') ? { target: '_blank', rel: 'noreferrer' } : {})} className={`product-case product-case-${product.tone}`}>
               <div className="product-case-topline">
                 <span>{product.collaborator}</span><ArrowRight className="h-4 w-4" aria-hidden="true" />
               </div>

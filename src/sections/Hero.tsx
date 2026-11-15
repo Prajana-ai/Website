@@ -1,5 +1,12 @@
-import { ArrowRight, Orbit, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+const productIndex = [
+  { name: 'SourceArc', detail: 'Personal branding', href: 'https://sourcearc.app', mark: 'SA' },
+  { name: 'Smara', detail: 'Agentic memory', href: 'https://smara.dev', mark: 'SM' },
+  { name: 'WatchHub', detail: 'Private watchlist', href: '/watchhub', mark: 'WH' },
+  { name: 'NATOAlpha', detail: 'Phonetic utility', href: '/natoalpha/', mark: 'NA' },
+];
 
 export function Hero() {
   return (
@@ -11,7 +18,7 @@ export function Hero() {
             Human insight × agentic systems
           </div>
           <h1 className="font-display text-5xl font-semibold leading-[0.95] tracking-[-0.055em] text-prajana-deep-blue dark:text-white sm:text-7xl lg:text-[5.75rem]">
-            Intelligence is better when it is built <span className="text-gradient">together.</span>
+            Intelligence is better when it is built <span className="text-[#315f78] dark:text-[#8fbfc7]">together.</span>
           </h1>
           <p className="mt-8 max-w-2xl text-lg leading-8 text-prajana-deep-blue/70 dark:text-prajana-ice-blue/70 sm:text-xl">
             Prajana AI Labs turns shared insight into working products—pairing human judgment with AI agents to create tools people can trust and use.
@@ -24,23 +31,18 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="relative mx-auto h-[420px] w-full max-w-[480px]" aria-label="Human insight connecting to shipped AI products">
-          <div className="signal-orbit signal-orbit-outer" />
-          <div className="signal-orbit signal-orbit-inner" />
-          <div className="signal-core">
-            <Orbit className="h-8 w-8" aria-hidden="true" />
-            <span>Shared<br />insight</span>
+        <div className="product-index" aria-label="Prajana products">
+          <div className="product-index-header">
+            <span>Current work</span>
+            <span>04 products</span>
           </div>
-          <a className="signal-node signal-node-source" href="https://sourcearc.app" target="_blank" rel="noreferrer">
-            <span className="signal-node-mark">SA</span>
-            <span><strong>SourceArc</strong><small>Personal voice, multiplied</small></span>
-          </a>
-          <a className="signal-node signal-node-smara" href="https://smara.dev" target="_blank" rel="noreferrer">
-            <span className="signal-node-mark">SM</span>
-            <span><strong>Smara</strong><small>Memory agents can defend</small></span>
-          </a>
-          <div className="signal-pulse signal-pulse-one" />
-          <div className="signal-pulse signal-pulse-two" />
+          {productIndex.map(product => (
+            <a key={product.name} className="product-index-row" href={product.href} {...(product.href.startsWith('http') ? { target: '_blank', rel: 'noreferrer' } : {})}>
+              <span className="product-index-mark" aria-hidden="true">{product.mark}</span>
+              <span><strong>{product.name}</strong><small>{product.detail}</small></span>
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </a>
+          ))}
         </div>
       </div>
     </header>
